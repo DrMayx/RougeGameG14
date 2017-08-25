@@ -7,10 +7,7 @@ def main():
 	menu_counter = 1
 	while True:
 		clear()
-		menu(menu_counter%3)
-		menu_counter+=1
-		if menu_counter > 2 :
-			menu_counter = 1
+		menu()
 		user_input = getch()
 		if user_input == 'p':
 			break
