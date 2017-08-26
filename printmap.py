@@ -1,5 +1,5 @@
-def print_map(file):
-	with open(file) as map:
-		for line in map:
-			print(line[:-1])
+def print_map(board):
+	for line in board:
+		for element in line
+			print(element)
 			

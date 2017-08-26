@@ -1,4 +1,4 @@
-def menu():
-	with open('menu.uie') as picture:		#printing logo
-		for line in picture:
-			print(line[:-1])
+def menu(picture):		#printing logo
+	for line in picture:
+		for element in line:
+			print(element)

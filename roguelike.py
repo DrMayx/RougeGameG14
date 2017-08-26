@@ -3,7 +3,7 @@ from movement import getch
 from menu import menu
 
 
-def main():
+def main(): # todo add those fucking boards!!
 	menu_counter = 1
 	while True:
 		clear()
