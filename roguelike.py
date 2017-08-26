@@ -3,6 +3,7 @@ from movement import getch
 from menu import menu
 from printmap import print_map
 from time import sleep
+from filehandling import unfile
 
 def exit():
 	exit_msg = "Do you really want to exit[Y/N] ? "
@@ -11,23 +12,46 @@ def exit():
 		sleep(.03) 
 	
 
-def main(): # todo add those fucking boards!!
+def main():
+	maps={
+		0:"menu",
+		1:"respawn.map",
+		2:"forrest.map",
+		3:"dungeon.map",
+		4:"boss.map",
+		5:"end.map"
+		}
+	map_id = 0
+	board = []
 	clear()
-	menu()
-	user_input = getch()
 	while True:
-		if user_input == 'p':
-			exit()
-			safety = getch()
-			clear(24,80)
-			break
-		if user_input == 'o':
-			clear()
-			print_map()
-		else:
-			clear()
+		clear()
+		#mapcheck
+		if map_id == 0:
 			menu()
-		user_input = getch()
+			user_input = getch()
+			if user_input == 'p':
+				exit()
+				safety = getch()
+				clear(24,80)
+				break
+			if user_input == 'o':
+				clear()
+				map_id = 1
+				board = unfile(maps[map_id])
+			else:
+				clear()
+				menu()
+		if map_id == 1:
+			print_map(board)
+			user_input = getch()
+			if user_input == 'p':
+				exit()
+				safety = getch()
+				clear(24,80)
+				break
+		
+		
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-def print_map():
-	with open("respawn.map") as board:
-		for line in board:
-			print(line[:-1])
+def print_map(board):
+	for row in board:
+		for col in row:
+			print(col,sep="",end="",flush=True)
