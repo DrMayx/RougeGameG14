@@ -5,6 +5,7 @@ from menu import menu
 from printmap import print_map
 from time import sleep
 from filehandling import unfile
+import os
 
 
 def exit():
