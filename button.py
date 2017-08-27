@@ -1,5 +1,4 @@
-import sys
-
+from movement import getch()
 
 class bg_color:
     ''' colors used for background '''
@@ -72,7 +71,15 @@ def button_off(button_type):
                 print(line[:-1])
 
 
-def main():
-    #print(fg_color.black, bg_color.green + "ale fajny tekst" + bg_color.end) - color check
-
+def gunwo():
+    current_choice = 1
+    if current choice == 1:
+        button_on("start")
+    elif current_choice == 2:
+        button_on("about")
+    elif current_choice == 3:
+        button_on("high_scores")
+    elif current_choice == 4:
+        button_on("exit")
+    
 main()
