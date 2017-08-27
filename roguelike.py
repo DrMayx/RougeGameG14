@@ -7,7 +7,6 @@ from time import sleep
 from filehandling import unfile
 import os
 
-
 def exit():
 	exit_msg = "Do you really want to exit[Y/N] ? "
 	for char in exit_msg:
@@ -58,8 +57,6 @@ def main():
 				safety = getch()
 				clear(24,80)
 				break
-		
-		
 
 
 if __name__ == "__main__":
