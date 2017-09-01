@@ -12,7 +12,7 @@ def getch():
         ch = sys.stdin.read(1)
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-    return ch
+    return ch.lower()
 
 
 if __name__ == '__main__':
