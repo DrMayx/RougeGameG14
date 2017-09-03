@@ -6,6 +6,7 @@ from menu import menu
 from printmap import print_map
 from time import sleep
 from filehandling import unfile
+from usrmovement import move
 import os
 
 
@@ -45,6 +46,7 @@ def main():
     map_id = 0
     board = []
     clear()
+    last_pos = None
     while True:
         '''main loop of the game'''
         clear()
@@ -66,6 +68,10 @@ def main():
                 clear()
                 menu()
         if map_id == 1:
+            if last_pos is None:
+                change = move(board,maps[map_id],current_pos=(33,61))
+                last_pos=change[0]
+                board=change[1]
             # If on certain map stay on that map
             # Can be implemented as a standalone function
             print_map(board)
@@ -73,6 +79,8 @@ def main():
             if user_input == 'p':
                 exit()
                 break
+            if user_input == 'w':
+                move(board,maps[map_id],0,1,last_pos)
 
 
 if __name__ == "__main__":
