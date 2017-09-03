@@ -64,12 +64,13 @@ def main():
                 clear()
                 map_id = 1
                 board = unfile(maps[map_id])
+                original_board = board
             else:
                 clear()
                 menu()
         if map_id == 1:
             if last_pos is None:
-                change = move(board,maps[map_id],current_pos=(33,61))
+                change = move(board,original_board,current_pos=(33,60))
                 last_pos=change[0]
                 board=change[1]
             # If on certain map stay on that map
@@ -80,7 +81,9 @@ def main():
                 exit()
                 break
             if user_input == 'w':
-                move(board,maps[map_id],0,1,last_pos)
+                change = move(board,original_board,0,1,last_pos)
+                last_pos=change[0]
+                board=change[1]
 
 
 if __name__ == "__main__":
