@@ -1,3 +1,5 @@
+from colors import Colors
+
 def move(board, original, direction=None, change=0, current_pos=None, player='@'):
     '''function that moves player character through the map
         board is a map (list)
@@ -10,15 +12,20 @@ def move(board, original, direction=None, change=0, current_pos=None, player='@'
     
     last = [current_pos[0],current_pos[1]]
     
-    def up():   # z jakiegoś powodu nie podmienia poprzedniego znaku ...
+    def up():   # działa kurwa DZIAŁA !!!!!!!
         try:
-            if board[last[0]-1][last[1]] == "H":
+            print('tu')
+            print (board[last[0]-1][last[1]])
+            if board[last[0]-1][last[1]] == Colors.floor + "H" + Colors.end:
                 board[last[0]-1][last[1]] = player
                 board[last[0]][last[1]] = original[last[0]][last[1]]
+                return True
             else:
                 board[last[0]][last[1]] = player
+                return False
         except IndexError:
             board[last[0]][last[1]] = player
+            return False
             
     def down():
         pass
@@ -26,6 +33,8 @@ def move(board, original, direction=None, change=0, current_pos=None, player='@'
         pass
     def left():
         pass
+    def idle():
+        board[last[0]][last[1]] = player
     
     
         # there goes the code for movement ... still to do
@@ -33,25 +42,25 @@ def move(board, original, direction=None, change=0, current_pos=None, player='@'
         # the wall or not and each map should have a list of
         # characters which are specific to them or use unified
         # set of characters for walls lava portals trees etc
-    if direction is None or change == 0 or current_pos is None:
+    if direction is None and change == 0 and current_pos is None:
         pass
     elif direction == 0:
         if change == 1:
-            up()
-            last = [last[0]-1,last[1]]
+            if up():
+                last = [last[0]-1, last[1]]
         elif change == -1:
             down()
         else:
-            pass
+            idle()
     elif direction == 1:
         if change == 1:
             right()
         elif change == 0:
             left()
         else:
-            pass
-        
-        
+            idle()
+    else:
+        idle()
 
         
     return (last,board)

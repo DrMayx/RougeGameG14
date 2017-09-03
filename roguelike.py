@@ -64,7 +64,7 @@ def main():
                 clear()
                 map_id = 1
                 board = unfile(maps[map_id])
-                original_board = board
+                original_board = unfile(maps[map_id])
             else:
                 clear()
                 menu()
@@ -84,6 +84,7 @@ def main():
                 change = move(board,original_board,0,1,last_pos)
                 last_pos=change[0]
                 board=change[1]
+        sleep(.05)
 
 
 if __name__ == "__main__":
