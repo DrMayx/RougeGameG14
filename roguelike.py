@@ -62,7 +62,6 @@ def main():
                 board = status[2]
                 original_board = status[3]
         if map_id == 1:
-            print(last_pos)
             if last_pos is None:
                 change = move(board,original_board,last=(33,59))
                 last_pos=change[0]
@@ -90,7 +89,7 @@ def main():
                 change = move(board,original_board,1,1,last_pos)
                 last_pos=change[0]
                 board=change[1]
-        sleep(.05)
+        sleep(.07)
 
 
 if __name__ == "__main__":
