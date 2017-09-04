@@ -2,11 +2,10 @@
 from sys import exit as forcequit
 from clear import resize_and_clear as clear
 from movement import getch
-from menu import menu
 from printmap import print_map
 from time import sleep
-from filehandling import unfile
 from usrmovement import move
+from startmenu import display_menu
 import os
 
 
@@ -51,23 +50,17 @@ def main():
         clear()
         # mapcheck
         if map_id == 0:
-            menu()
-            user_input = getch()
-            if user_input == 'p':
+            status = display_menu(maps)
+            if status == None:
                 exit()
                 break
-            if user_input == 'o':
-                # Change map to lvl 1
-                # Can be modified to show story
-
-                clear()
-                map_id = 1
-                last_pos = None
-                board = unfile(maps[map_id])
-                original_board = unfile(maps[map_id])
+            if status == maps[0]:
+                map_id = 0
             else:
-                clear()
-                menu()
+                map_id = status[0]
+                last_pos = status[1]
+                board = status[2]
+                original_board = status[3]
         if map_id == 1:
             print(last_pos)
             if last_pos is None:
