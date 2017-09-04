@@ -1,5 +1,6 @@
 from movement import getch()
 
+
 class bg_color:
     ''' colors used for background '''
     black = '\033[40m'
@@ -57,29 +58,50 @@ def button_off(button_type):
         with open('start_button.uie') as picture:
             for line in picture:
                 print(line[:-1])
-    elif button_type == "about":
+    if button_type == "about":
         with open('about_button.uie') as picture:
             for line in picture:
                 print(line[:-1])
-    elif button_type == "high_scores":
+    if button_type == "high_scores":
         with open('highscore_button.uie') as picture:
             for line in picture:
                 print(line[:-1])
-    else button_type == "exit":
+    if button_type == "exit":
         with open('exit_button.uie') as picture:
             for line in picture:
                 print(line[:-1])
 
 
-def gunwo():
-    current_choice = 1
+def select_button(current_choice=1):
     if current choice == 1:
         button_on("start")
+        button_off("about", "high_scores", "exit")
     elif current_choice == 2:
         button_on("about")
+        button_off("start", "high_scores", "exit")
     elif current_choice == 3:
         button_on("high_scores")
+        button_off("about", "start", "exit")
     elif current_choice == 4:
         button_on("exit")
+        button_off("about", "high_scores", "start")
+
+
+def change_button():
+    user_input = getch()
+    current_choice = 1
+    if user_input = 'w':
+        if current_choice == 1:
+            current_choice = 1
+        else:
+            current_choice += 1
+    if user_input = 's':
+        if current_choice == 4:
+            current_choice = 4
+        else:
+            current_choice -= 1
+    select_button(current_choice)
+
+
     
 main()
