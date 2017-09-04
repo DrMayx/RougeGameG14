@@ -1,6 +1,6 @@
 from colors import Colors
 
-def move(board, original, direction=None, change=0, current_pos=None, player='@'):
+def move(board, original, direction=None, change=0, last=None, player='@'):
     '''function that moves player character through the map
         board is a map (list)
         original is an original map (list)
@@ -10,14 +10,11 @@ def move(board, original, direction=None, change=0, current_pos=None, player='@'
         '''
     
     
-    last = [current_pos[0],current_pos[1]]
     
-    def up():   # działa kurwa DZIAŁA !!!!!!!
+    def down():   # działa kurwa DZIAŁA !!!!!!!
         try:
-            print('tu')
-            print (board[last[0]-1][last[1]])
-            if board[last[0]-1][last[1]] == Colors.floor + "H" + Colors.end:
-                board[last[0]-1][last[1]] = player
+            if board[last[0]+change][last[1]] == Colors.floor + "H" + Colors.end:
+                board[last[0]+change][last[1]] = player
                 board[last[0]][last[1]] = original[last[0]][last[1]]
                 return True
             else:
@@ -27,12 +24,18 @@ def move(board, original, direction=None, change=0, current_pos=None, player='@'
             board[last[0]][last[1]] = player
             return False
             
-    def down():
-        pass
     def right():
-        pass
-    def left():
-        pass
+        try:
+            if board[last[0]][last[1]+change] == Colors.floor + "H" + Colors.end:
+                board[last[0]][last[1]+change] = player
+                board[last[0]][last[1]] = original[last[0]][last[1]]
+                return True
+            else:
+                board[last[0]][last[1]] = player
+                return False
+        except IndexError:
+            board[last[0]][last[1]] = player
+            return False
     def idle():
         board[last[0]][last[1]] = player
     
@@ -42,23 +45,14 @@ def move(board, original, direction=None, change=0, current_pos=None, player='@'
         # the wall or not and each map should have a list of
         # characters which are specific to them or use unified
         # set of characters for walls lava portals trees etc
-    if direction is None and change == 0 and current_pos is None:
+    if direction is None and change == 0 and last is None:
         pass
     elif direction == 0:
-        if change == 1:
-            if up():
-                last = [last[0]-1, last[1]]
-        elif change == -1:
-            down()
-        else:
-            idle()
+        if down():
+            last = [last[0]+change,last[1]]
     elif direction == 1:
-        if change == 1:
-            right()
-        elif change == 0:
-            left()
-        else:
-            idle()
+        if right():
+            last = [last[0],last[1]+change]
     else:
         idle()
 

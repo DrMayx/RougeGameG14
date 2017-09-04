@@ -46,7 +46,6 @@ def main():
     map_id = 0
     board = []
     clear()
-    last_pos = None
     while True:
         '''main loop of the game'''
         clear()
@@ -63,14 +62,16 @@ def main():
 
                 clear()
                 map_id = 1
+                last_pos = None
                 board = unfile(maps[map_id])
                 original_board = unfile(maps[map_id])
             else:
                 clear()
                 menu()
         if map_id == 1:
+            print(last_pos)
             if last_pos is None:
-                change = move(board,original_board,current_pos=(33,60))
+                change = move(board,original_board,last=(33,59))
                 last_pos=change[0]
                 board=change[1]
             # If on certain map stay on that map
@@ -80,8 +81,20 @@ def main():
             if user_input == 'p':
                 exit()
                 break
-            if user_input == 'w':
+            elif user_input == 'w':
+                change = move(board,original_board,0,-1,last_pos)
+                last_pos=change[0]
+                board=change[1]
+            elif user_input == 's':
                 change = move(board,original_board,0,1,last_pos)
+                last_pos=change[0]
+                board=change[1]
+            elif user_input == 'a':
+                change = move(board,original_board,1,-1,last_pos)
+                last_pos=change[0]
+                board=change[1]
+            elif user_input == 'd':
+                change = move(board,original_board,1,1,last_pos)
                 last_pos=change[0]
                 board=change[1]
         sleep(.05)
