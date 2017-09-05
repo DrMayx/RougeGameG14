@@ -2,10 +2,12 @@ from filehandling import unfile
 from menu import logo
 from movement import getch
 from clear import resize_and_clear as clear
+from button import change_button as button
 
-
-def display_menu(maps):
+def display_menu(maps, current_choice, last_input):
+	user_input = last_input
 	logo()
+	current_choice = button(user_input, current_choice)
 	user_input = getch()
 	# here go the buttons!!
 	
@@ -23,6 +25,6 @@ def display_menu(maps):
 	else:
 		clear()
 		logo()
-		return 'menu'
+		return ('menu', current_choice, user_input)
 	
 	
