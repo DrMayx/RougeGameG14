@@ -1,5 +1,3 @@
-from movement import getch()
-
 
 class bg_color:
     ''' colors used for background '''
@@ -39,15 +37,15 @@ def button_on(button_type):
         with open('start_button.uie') as picture:
             for line in picture:
                 print(bg_color.green + line[:-1] + bg_color.end)
-    elif button_type == "about":
+    if button_type == "about":
         with open('about_button.uie') as picture:
             for line in picture:
                 print(bg_color.green + line[:-1] + bg_color.end)
-    elif button_type == "high_scores":
+    if button_type == "high_scores":
         with open('highscore_button.uie') as picture:
             for line in picture:
                 print(bg_color.green + line[:-1] + bg_color.end)
-    else button_type == "exit":
+    if button_type == "exit":
         with open('exit_button.uie') as picture:
             for line in picture:
                 print(bg_color.green + line[:-1] + bg_color.end)
@@ -72,36 +70,57 @@ def button_off(button_type):
                 print(line[:-1])
 
 
-def select_button(current_choice=1):
-    if current choice == 1:
+def select_button(current_choice):
+    if current_choice == 0:
         button_on("start")
-        button_off("about", "high_scores", "exit")
+        button_off("about")
+        button_off('high_scores')
+        button_off("exit")
+        current_choice += 1
+        print(current_choice)
+        return current_choice
+    if current_choice == 1:
+        button_on("start")
+        button_off("about")
+        button_off('high_scores')
+        button_off("exit")
+        current_choice = 1
+        return current_choice
     elif current_choice == 2:
+        button_off("start")
         button_on("about")
-        button_off("start", "high_scores", "exit")
+        button_off('high_scores')
+        button_off("exit")
+        current_choice = 2
+        return current_choice
     elif current_choice == 3:
+        button_off("start")
+        button_off('about')
         button_on("high_scores")
-        button_off("about", "start", "exit")
+        button_off("exit")
+        current_choice = 3
+        return current_choice
     elif current_choice == 4:
+        button_off("start")
+        button_off("about")
+        button_off('high_scores')
         button_on("exit")
-        button_off("about", "high_scores", "start")
+        current_choice = 4
+        return current_choice
 
 
-def change_button():
-    user_input = getch()
-    current_choice = 1
-    if user_input = 'w':
+def change_button(user_input, current_choice):
+    if user_input == 'w':
         if current_choice == 1:
             current_choice = 1
         else:
-            current_choice += 1
-    if user_input = 's':
+            current_choice -= 1
+    if user_input == 's':
         if current_choice == 4:
             current_choice = 4
         else:
-            current_choice -= 1
-    select_button(current_choice)
-
-
-    
-main()
+            current_choice += 1
+    if user_input == '':
+        current_choice = 0
+    current_choice = select_button(current_choice)
+    return current_choice

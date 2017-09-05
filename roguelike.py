@@ -48,18 +48,23 @@ def main():
     }
     map_id = 0
     board = []
+    current_choice = 1
+    last_input = ''
     clear()
     while True:
         '''main loop of the game'''
         clear()
         # mapcheck
         if map_id == 0:
-            status = display_menu(maps)
+            status = display_menu(maps, current_choice, last_input)
             if status == None:
                 exit()
                 break
-            if status == maps[0]:
+            if status[0] == maps[0]:
                 map_id = 0
+                current_choice = status[1]
+                last_input = status[2]
+                
             else:
                 map_id = status[0]
                 last_pos = status[1]
