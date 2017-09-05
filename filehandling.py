@@ -1,5 +1,6 @@
 from colors import Colors
 
+
 def unfile(filename):
     '''function that reads the file and writes
     it's insides to a list also colors every

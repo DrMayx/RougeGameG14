@@ -4,7 +4,7 @@ from clear import resize_and_clear as clear
 from movement import getch
 from printmap import print_map
 from time import sleep
-from usrmovement import move
+from movement import move
 from startmenu import display_menu
 import os
 
@@ -18,7 +18,11 @@ def exit():
     for char in exit_msg:
         print(char, end="", flush=True)
         sleep(.03)
-    safety = getch()
+    safety_check = getch()
+    '''
+    if safety_check = 'y':
+        clear(24,80)
+    '''
     clear(24, 80)
 
 
