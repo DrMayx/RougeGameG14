@@ -9,9 +9,9 @@ def display_menu(maps):
 	user_input = getch()
 	# here go the buttons!!
 	
-	if user_input == 'p':
+	if user_input == '\x1b':
 		return
-	elif user_input == 'o':
+	elif user_input == '\r':
 		# Change map to lvl 1
 		# Can be modified to show story
 
