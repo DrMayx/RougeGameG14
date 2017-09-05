@@ -1,9 +1,15 @@
 from filehandling import unfile
-from menu import logo
 from movement import getch
 from clear import resize_and_clear as clear
 from button import change_button as button
 from about import print_about as about
+
+
+def logo():  # printing logo
+    with open("menu.uie") as picture:
+        for line in picture:
+            print(line[:-1])
+
 
 def display_menu(maps, current_choice, last_input):
 	user_input = last_input
