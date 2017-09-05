@@ -43,13 +43,23 @@ def display_menu(maps, current_choice, last_input):
 		return ('menu', current_choice, user_input)
 	
 	
-def display_pause_menu(current_choice, last_input):
+def display_pause_menu(last_map, current_choice, last_input):
 	clear()
 	user_input = last_input
 	current_choice = button(user_input, current_choice)
 	user_input = getch()
 	if user_input == 'p':
 		return
+	elif user_input == '\r' and current_choice == 1:
+		return
+	elif user_input == '\r' and current_choice == 2:
+		# Change to about screen
+
+		clear()
+		about()
+		clear()
+		logo()
+		return ('menu', current_choice, user_input)
 	else:
 		clear()
 		return('pause', current_choice, user_input)

@@ -1,5 +1,6 @@
 from colors import Colors
 from time import sleep
+from people import sage
 
 
 def move(board, original, direction=None, change=0, last=None, player='\033[34m@\x1b[0m'):
@@ -11,7 +12,7 @@ def move(board, original, direction=None, change=0, last=None, player='\033[34m@
         current_pos is a tuple containing a position before move() is called
         player is the default player icon (character)
         '''
-    message = None
+    output = None
     
     
     def move_down():
@@ -24,9 +25,13 @@ def move(board, original, direction=None, change=0, last=None, player='\033[34m@
                 return True
             elif board[last[0]+change][last[1]] == "0":
                 #here goes the things that sage wants to say
-                print('aaaaa!!!!')
-                sleep(2)
+                sage()
                 return False
+            elif board[last[0]+change][last[1]] == (Colors.portal + "$" + Colors.end):
+                board[last[0]+change][last[1]] = player
+                board[last[0]][last[1]] = original[last[0]][last[1]]
+                output = 2
+                return (True,output)
             else:
                 idle()
                 return False
@@ -43,11 +48,15 @@ def move(board, original, direction=None, change=0, last=None, player='\033[34m@
                 board[last[0]][last[1]+change] = player
                 board[last[0]][last[1]] = original[last[0]][last[1]]
                 return True
-            elif board[last[0]+change][last[1]] == "0":
+            elif board[last[0]][last[1]+change] == "0":
                 #here goes the intro
-                print('aaaaa!!!!')
-                sleep(2)
+                sage()
                 return False
+            elif board[last[0]][last[1]+change] == (Colors.portal + "$" + Colors.end):
+                board[last[0]][last[1]+change] = player
+                board[last[0]][last[1]] = original[last[0]][last[1]]
+                output = 2
+                return (True,output)
             else:
                 idle()
                 return False
@@ -63,16 +72,32 @@ def move(board, original, direction=None, change=0, last=None, player='\033[34m@
     if direction is None and change == 0 and last is None:
         pass
     elif direction == 0:
-        if move_down():
+        check = move_down()
+        if check:
             last = [last[0]+change,last[1]]
+            try:
+                if any(( c in str(check[1]) ) for c in '234'):
+                    output = check[1]
+            except IndexError:
+                pass
+            except TypeError:
+                print('check: ', check)
     elif direction == 1:
-        if move_right():
+        check = move_right()
+        if check:
             last = [last[0],last[1]+change]
+            try:
+                if any(( c in str(check[1]) ) for c in '234'):
+                    output = check[1]
+            except IndexError:
+                pass
+            except TypeError:
+                print('check: ', check)
     else:
         idle()
 
-        
-    return (last,board,message)
+      
+    return (last,board,output)
 
 
 def attack():
