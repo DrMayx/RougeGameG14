@@ -36,7 +36,7 @@ def main():
         print("Closing the program.")
         sleep(2)
         forcequit()
-
+    
     # Define map numbers
     maps = {
         0: "menu",
@@ -79,7 +79,7 @@ def main():
             # Can be implemented as a standalone function
             print_map(board)
             user_input = getch()
-            if user_input == 'p':
+            if user_input == '\x1b':
                 exit()
                 break
             elif user_input == 'w':

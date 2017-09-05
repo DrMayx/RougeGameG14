@@ -2,7 +2,7 @@ from colors import Colors
 from time import sleep
 
 
-def move(board, original, direction=None, change=0, last=None, player='@'):
+def move(board, original, direction=None, change=0, last=None, player='\033[34m@\x1b[0m'):
     '''function that moves player character through the map
         board is a map (list)
         original is an original map (list)
@@ -73,6 +73,11 @@ def move(board, original, direction=None, change=0, last=None, player='@'):
 
         
     return (last,board,message)
+
+
+def attack():
+    pass
+
 
 if __name__ == '__main__':
     # Do not run alone
