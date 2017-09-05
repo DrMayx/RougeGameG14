@@ -87,24 +87,24 @@ def select_button(current_choice):
         current_choice = 1
         return current_choice
     elif current_choice == 2:
-        button_on("about")
         button_off("start")
+        button_on("about")
         button_off('high_scores')
         button_off("exit")
         current_choice = 2
         return current_choice
     elif current_choice == 3:
-        button_on("high_scores")
         button_off("start")
         button_off('about')
+        button_on("high_scores")
         button_off("exit")
         current_choice = 3
         return current_choice
     elif current_choice == 4:
-        button_on("exit")
         button_off("start")
-        button_off('high_scores')
         button_off("about")
+        button_off('high_scores')
+        button_on("exit")
         current_choice = 4
         return current_choice
 
