@@ -9,9 +9,8 @@ def display_menu(maps, current_choice, last_input):
 	logo()
 	current_choice = button(user_input, current_choice)
 	user_input = getch()
-	# here go the buttons!!
 	
-	if user_input == '\x1b':
+	if user_input == 'p':
 		return
 	elif user_input == '\r':
 		# Change map to lvl 1
@@ -28,3 +27,13 @@ def display_menu(maps, current_choice, last_input):
 		return ('menu', current_choice, user_input)
 	
 	
+def display_pause_menu(current_choice, last_input):
+	clear()
+	user_input = last_input
+	current_choice = button(user_input, current_choice)
+	user_input = getch()
+	if user_input == 'p':
+		return
+	else:
+		clear()
+		return('pause', current_choice, user_input)

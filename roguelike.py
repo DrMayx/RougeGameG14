@@ -5,7 +5,8 @@ from movement import getch
 from printmap import print_map
 from time import sleep
 from movement import move
-from startmenu import display_menu
+from menus import display_menu
+from menus import display_pause_menu
 import os
 
 
@@ -41,16 +42,18 @@ def main():
     maps = {
         0: "menu",
         1: "respawn.map",
-        2: "forrest.map",
+        2: "forest.map",
         3: "dungeon.map",
         4: "boss.map",
-        5: "end.map"
+        5: "end.map",
+        6: "pause"
     }
     map_id = 0
     board = []
     current_choice = 1
     last_input = ''
     clear()
+    last_map_id = 1
     while True:
         '''main loop of the game'''
         clear()
@@ -60,7 +63,7 @@ def main():
             if status == None:
                 exit()
                 break
-            if status[0] == maps[0]:
+            elif status[0] == maps[0]:
                 map_id = 0
                 current_choice = status[1]
                 last_input = status[2]
@@ -71,17 +74,19 @@ def main():
                 board = status[2]
                 original_board = status[3]
         if map_id == 1:
+            last_map_id = 1
             if last_pos is None:
-                change = move(board,original_board,last=(33,59))
+                change = move(board,original_board,last=(33,60))
                 last_pos=change[0]
                 board=change[1]
             # If on certain map stay on that map
             # Can be implemented as a standalone function
             print_map(board)
             user_input = getch()
-            if user_input == '\x1b':
-                exit()
-                break
+            if user_input == 'p':
+                map_id = 6
+                last_input = ''
+                current_choice = 1
             elif user_input == 'w':
                 change = move(board,original_board,0,-1,last_pos)
                 last_pos=change[0]
@@ -98,6 +103,14 @@ def main():
                 change = move(board,original_board,1,1,last_pos)
                 last_pos=change[0]
                 board=change[1]
+        if map_id == 6:
+            status = display_pause_menu(current_choice, last_input)
+            if status == None:
+                map_id = last_map_id
+            elif status[0] == maps[6]:
+                map_id = 6
+                current_choice = status[1]
+                last_input = status[2]
         sleep(.07)
 
 
