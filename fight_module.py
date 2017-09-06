@@ -31,17 +31,17 @@ def digit_guess():
 def dungeon_fight():
     print_string_list = ''
     quiz_number = get_two_digit_quiz()
+    print(quiz_number)
     print("\nTo kill a monster you have to crack 2 digit code!")
     print("\nHOT - number on correct position" + "\nWARM - number in the code" + "\nCOLD - number not in code")
     while True:
-        guess = input_two_digit_code()
-        result = check_two_digit_code(guess, quiz_number)
-        for element in result:
+        user_guess = input_two_digit_code()
+        hint_list = check_two_digit_code(user_guess, quiz_number)
+        for element in hint_list:
             print_string_list += element + ' '
         print(print_string_list)
-        print_string_list = ''
-        if check_result(result):
-            print('WIN')
+        if check_result_two(hint_list):
+            print("WIN")
             break
 
 
@@ -68,19 +68,19 @@ def input_two_digit_code():
 def check_two_digit_code(user_guess, quiz_number):
     index = 0
     hint_list = []
-    while True:
-        for a in quiz_number:
-            if str(a) == user_guess[index]:
-                hint_list.insert(0, 'HOT')
-            elif str(a) in user_guess:
-                hint_list.append('WARM')
-            index += 1
-        if not hint_list:
-            hint_list.append('COLD')
-        return hint_list
+    for a in quiz_number:
+        if str(a) == user_guess[index]:
+            hint_list.insert(0, 'HOT')
+        elif str(a) in user_guess:
+            hint_list.append('WARM')
+        index += 1
+    if not hint_list:
+        hint_list.append('COLD')
+
+    return hint_list
 
 
-def check_result(hint_list):
+def check_result_two(hint_list):
     if hint_list == ['HOT']*2:
         return True
 
@@ -95,7 +95,7 @@ def boss_fight():
             print_string_list += element + ' '
         print(print_string_list)
         print_string_list = ''
-        if check_result(result):
+        if check_result_three(result):
             print("WIN")
             break
 
@@ -134,10 +134,11 @@ def compare_user_input_with_answer(user_guess, correct_answer):
 
     return hint_list
 
-def check_result(hint_list):
+
+def check_result_three(hint_list):
     if hint_list == ["HOT"] * 3:
         return True
 
 #forrest_fight()
-#dungeon_fight()
+dungeon_fight()
 boss_fight()
