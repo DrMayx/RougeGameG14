@@ -1,5 +1,3 @@
-\x1b[0;32;40m
 historia bla ba bla... ... bla ... bla bla..... bla bla bla.....
 bla ... bla bla ........ koty .... bla bla bla .... gladiator ..
 bla zabity... bla bla .... odzyskać chwałę ... bla bla bla. idz.
-\x1b[0m

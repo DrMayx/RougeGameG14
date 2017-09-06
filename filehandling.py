@@ -15,12 +15,16 @@ def unfile(filename):
             for char in line:
                 if char == "#":  # wall coloring
                     to_print = Colors.wall + char + Colors.end
-                elif char == "$":  # portal coloring
+                elif char == "$" or char == '*' or char == '^':  # portal coloring
                     to_print = Colors.portal + char + Colors.end
                 elif char == "/":  # comment start coloring
                     to_print = Colors.comment + char
                 elif char == "\\":  # comment end coloring
                     to_print = char + Colors.end
+                elif char == '|':   #tree foot coloring
+                    to_print = Colors.tree + char + Colors.end
+                elif char == '8' or char == '^':
+                    to_print = Colors.leafs + char + Colors.end
                 else:
                     to_print = char
                 outcome_list[row_counter].append(to_print)
