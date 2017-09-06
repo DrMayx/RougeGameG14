@@ -1,7 +1,7 @@
 import random
 
 
-def forrest_fight():
+def forrest_fight(player, enemy):
     quiz_number = []
     quiz_number = random.randint(0, 9)
     print("\nTo kill a monster you have to crack 1 digit code!")
@@ -12,9 +12,10 @@ def forrest_fight():
             break
         if str(quiz_number) < user_guess:
             print('Your digit is too high!')
-
+            player.life -= enemy.damage
         if str(quiz_number) > user_guess:
             print("Your digit is too low!")
+            player.life -= enemy.damage
 
 
 def digit_guess():
@@ -43,6 +44,8 @@ def dungeon_fight():
         if check_result_two(hint_list):
             print("WIN")
             break
+        else:
+            player.life -= enemy.damage
 
 
 def get_two_digit_quiz():
@@ -76,7 +79,6 @@ def check_two_digit_code(user_guess, quiz_number):
         index += 1
     if not hint_list:
         hint_list.append('COLD')
-
     return hint_list
 
 
@@ -98,6 +100,8 @@ def boss_fight():
         if check_result_three(result):
             print("WIN")
             break
+        else:
+            player.life -= enemy.damage
 
 
 def get_random_digits():
@@ -138,7 +142,3 @@ def compare_user_input_with_answer(user_guess, correct_answer):
 def check_result_three(hint_list):
     if hint_list == ["HOT"] * 3:
         return True
-
-#forrest_fight()
-dungeon_fight()
-boss_fight()
