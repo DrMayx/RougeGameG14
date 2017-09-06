@@ -17,7 +17,7 @@ def display_menu(maps, current_choice, last_input):
 	current_choice = button(user_input, current_choice)
 	user_input = getch()
 	
-	if user_input == 'p':
+	if user_input == '\r' and current_choice == 4:
 		return
 	if user_input == '\r' and current_choice == 1:
 		# Change map to lvl 1
