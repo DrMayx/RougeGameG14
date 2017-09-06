@@ -20,10 +20,8 @@ class Enemy:
 	def spawn(self,board):
 		from random import randint
 		while True:
-			print(len(board[0])-1)
 			self.x_coord = randint(0, len(board[0])-1)
 			self.y_coord = randint(0, len(board)-1)
-			print(self.x_coord," ", self.y_coord)
 			if board[self.y_coord][self.x_coord] == " ":
 				break
 

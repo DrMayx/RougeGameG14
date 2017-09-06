@@ -10,6 +10,7 @@ from menus import display_menu
 from menus import display_pause_menu
 from enemies import Enemy
 from colors import Colors
+from random import randint
 import os
 
 
@@ -57,6 +58,7 @@ def main():
     last_input = ''
     clear()
     last_map_id = 1
+    enemies = [1,True]
     while True:
         '''main loop of the game'''
         clear()
@@ -134,14 +136,29 @@ def main():
         # that doesnt work... to fix 
         elif map_id == 2:
             last_map_id = 2
+            
+            
             if last_pos is None:
                 change = move(board, original_board, last=(3, 45))
                 last_pos = change[0]
                 board = change[1]
                 
-            enemy1=Enemy(1)
-            enemy1.spawn(board)
-            board[enemy1.y_coord][enemy1.x_coord] = Colors.enemy + enemy1.enemy_char + Colors.end
+                
+            if enemies[1]:
+                for i in range(10):
+                    if randint(0,1):
+                        enemies.append(Enemy(1))
+                        enemies[0]+=1
+                        enemies[enemies[0]].spawn(board)
+                        board[enemies[enemies[0]].y_coord][enemies[enemies[0]].x_coord] = Colors.enemy + enemies[enemies[0]].enemy_char + Colors.end
+                if enemies[0] < 2:
+                    enemies.append(Enemy(1))
+                    enemies[0]+=1
+                    enemies[enemies[0]].spawn(board)
+                    board[enemies[enemies[0]].y_coord][enemies[enemies[0]].x_coord] = Colors.enemy + enemies[enemies[0]].enemy_char + Colors.end
+
+                enemies[1] = False
+                    
             print_map(board)
             
             user_input = getch()
