@@ -81,7 +81,7 @@ def move(board, original, direction=None, change=0, last=None, player='\033[34m@
             except IndexError:
                 pass
             except TypeError:
-                print('check: ', check)
+                pass
     elif direction == 1:
         check = move_right()
         if check:
@@ -92,7 +92,7 @@ def move(board, original, direction=None, change=0, last=None, player='\033[34m@
             except IndexError:
                 pass
             except TypeError:
-                print('check: ', check)
+                pass
     else:
         idle()
 

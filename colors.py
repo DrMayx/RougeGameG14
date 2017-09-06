@@ -6,6 +6,7 @@ class Colors:
     comment = "\x1b[0;32;40m"
     floor = "\x1b[4;30;47m"
     eyes = "\x1b[1;34;47m"
-    end = "\x1b[0m"
     leafs = "\033[92m"
     tree = "\033[30m"
+    enemy ="\x1b[1;32;41m"
+    end = "\x1b[0m"
