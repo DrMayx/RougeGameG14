@@ -31,6 +31,15 @@ def display_menu(maps, current_choice, last_input):
 		clear()
 		logo()
 		return ('menu', current_choice, user_input)
+
+	if user_input == '\r' and current_choice == 3:
+		# Change to about screen
+
+		clear()
+		about()
+		clear()
+		logo()
+		return ('menu', current_choice, user_input)
 		
 	else:
 		clear()
