@@ -23,7 +23,7 @@ def unfile(filename):
                     to_print = char + Colors.end
                 elif char == '|':   #tree foot coloring
                     to_print = Colors.tree + char + Colors.end
-                elif char == '8' or char == '^':
+                elif char == '8' or char == 'n':
                     to_print = Colors.leafs + char + Colors.end
                 else:
                     to_print = char

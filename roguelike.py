@@ -8,6 +8,8 @@ from filehandling import unfile
 from movement import move
 from menus import display_menu
 from menus import display_pause_menu
+from enemies import Enemy
+from colors import Colors
 import os
 
 
@@ -75,7 +77,7 @@ def main():
                 board = status[2]
                 original_board = status[3]
 
-        if map_id == 1:
+        elif map_id == 1:
             last_map_id = 1
             if last_pos is None:
                 change = move(board, original_board, last=(33, 60))
@@ -94,11 +96,10 @@ def main():
                 last_pos = change[0]
                 board = change[1]
                 if change[2] is not None:
-                    print(change)
-                    map_id = maps[change[2]]
+                    map_id = change[2]
                     board = unfile(maps[change[2]])
                     original_board = unfile(maps[change[2]])
-                    sleep(25)
+                    last_pos = None
             elif user_input == 's':
                 change = move(board, original_board, 0, 1, last_pos)
                 last_pos = change[0]
@@ -107,6 +108,7 @@ def main():
                     map_id = maps[change[2]]
                     board = unfile(maps[change[2]])
                     original_board = unfile(maps[change[2]])
+                    last_pos = None
             elif user_input == 'a':
                 change = move(board, original_board, 1, -1, last_pos)
                 last_pos = change[0]
@@ -115,6 +117,7 @@ def main():
                     map_id = maps[change[2]]
                     board = unfile(maps[change[2]])
                     original_board = unfile(maps[change[2]])
+                    last_pos = None
             elif user_input == 'd':
                 change = move(board, original_board, 1, 1, last_pos)
                 last_pos = change[0]
@@ -123,17 +126,24 @@ def main():
                     map_id = maps[change[2]]
                     board = unfile(maps[change[2]])
                     original_board = unfile(maps[change[2]])
+                    last_pos = None
             else:
                 exit()
                 break
+                
         # that doesnt work... to fix 
-        if map_id == 2:
+        elif map_id == 2:
             last_map_id = 2
             if last_pos is None:
                 change = move(board, original_board, last=(3, 45))
                 last_pos = change[0]
                 board = change[1]
+                
+            enemy1=Enemy(1)
+            enemy1.spawn(board)
+            board[enemy1.y_coord][enemy1.x_coord] = Colors.enemy + enemy1.enemy_char + Colors.end
             print_map(board)
+            
             user_input = getch()
             if user_input == 'p':
                 map_id = 6
@@ -166,7 +176,7 @@ def main():
             else:
                 exit()
                 break
-        if map_id == 6:
+        elif map_id == 6:
             status = display_pause_menu(maps, current_choice, last_input)
             if status is None:
                 map_id = last_map_id
