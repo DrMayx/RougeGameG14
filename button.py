@@ -77,7 +77,6 @@ def select_button(current_choice):
         button_off('high_scores')
         button_off("exit")
         current_choice += 1
-        print(current_choice)
         return current_choice
     if current_choice == 1:
         button_on("start")
