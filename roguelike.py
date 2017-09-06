@@ -157,9 +157,11 @@ def main():
                     enemies[0]+=1
                     enemies[enemies[0]].spawn(board)
                     board[enemies[enemies[0]].y_coord][enemies[enemies[0]].x_coord] = Colors.enemy + enemies[enemies[0]].enemy_char + Colors.end
-
+            
                 enemies[1] = False
-                    
+                
+            enemies_left = enemies[0]
+            
             print_map(board)
             
             user_input = getch()
@@ -194,14 +196,16 @@ def main():
             else:
                 exit()
                 break
-                '''
             if enemies_left == 0:
+                print("Level clear!")
+                sleep(1)
                 map_id = 1
                 current_choice = 1
                 board = unfile(maps[change[2]])
                 original_board = unfile(maps[change[2]])
                 last_pos = None
-                '''
+                
+                
         elif map_id == 6:
             status = display_pause_menu(maps, current_choice, last_input)
             if status is None:

@@ -1,6 +1,7 @@
 from colors import Colors
 from time import sleep
 from people import sage
+import fightmodule as fight
 
 
 def move(board, original, direction=None, change=0, last=None, user=None):
@@ -30,20 +31,25 @@ def move(board, original, direction=None, change=0, last=None, user=None):
     def move_down():
         '''function in charge of movig character up an down'''
         try:
-            if board[last[0]+change][last[1]] == " " :
+            next_pos = board[last[0]+change][last[1]]
+            current = board[last[0]][last[1]]
+            if next_pos == " " :
                 # movement only on floor that is " "
-                board[last[0]+change][last[1]] = user
-                board[last[0]][last[1]] = original[last[0]][last[1]]
+                next_pos = user
+                current = original[last[0]][last[1]]
                 return True
-            elif board[last[0]+change][last[1]] == "0":
+            elif next_pos == "0":
                 #here goes the things that sage wants to say
                 sage()
                 return False
-            elif board[last[0]+change][last[1]] == (Colors.portal + "$" + Colors.end):
-                board[last[0]+change][last[1]] = user
-                board[last[0]][last[1]] = original[last[0]][last[1]]
+            elif next_pos == (Colors.portal + "$" + Colors.end):
+                next_pos = user
+                current = original[last[0]][last[1]]
                 output = 2
                 return (True,output)
+            elif '<' in next_pos:
+                pass
+                #fight.
             else:
                 idle()
                 return False
@@ -55,18 +61,20 @@ def move(board, original, direction=None, change=0, last=None, user=None):
     def move_right():
         '''function in charge of moving character right and left'''
         try:
-            if board[last[0]][last[1]+change] == " ":
+            next_pos = board[last[0]][last[1]+change]
+            current = board[last[0]][last[1]]
+            if next_pos == " ":
                 # movement only on floor that is " "
-                board[last[0]][last[1]+change] = user
-                board[last[0]][last[1]] = original[last[0]][last[1]]
+                next_pos = user
+                current = original[last[0]][last[1]]
                 return True
-            elif board[last[0]][last[1]+change] == "0":
+            elif next_pos == "0":
                 #here goes the intro
                 sage()
                 return False
-            elif board[last[0]][last[1]+change] == (Colors.portal + "$" + Colors.end):
-                board[last[0]][last[1]+change] = user
-                board[last[0]][last[1]] = original[last[0]][last[1]]
+            elif next_pos == (Colors.portal + "$" + Colors.end):
+                next_pos = user
+                current = original[last[0]][last[1]]
                 output = 2
                 return (True,output)
             else:
