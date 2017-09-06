@@ -133,7 +133,6 @@ def main():
                 exit()
                 break
                 
-        # that doesnt work... to fix 
         elif map_id == 2:
             last_map_id = 2
             
@@ -193,6 +192,13 @@ def main():
             else:
                 exit()
                 break
+            if enemies_left == 0:
+                map_id = 1
+                current_choice = 1
+                board = unfile(maps[change[2]])
+                original_board = unfile(maps[change[2]])
+                last_pos = None
+                
         elif map_id == 6:
             status = display_pause_menu(maps, current_choice, last_input)
             if status is None:
