@@ -3,15 +3,27 @@ from time import sleep
 from people import sage
 
 
-def move(board, original, direction=None, change=0, last=None, player='\033[34m@\x1b[0m'):
-    '''function that moves player character through the map
+def move(board, original, direction=None, change=0, last=None, user=None):
+    '''function that moves user character through the map
         board is a map (list)
         original is an original map (list)
         direction = [0-up, 1-right] (number)
         change = [1, -1] (number)
         current_pos is a tuple containing a position before move() is called
-        player is the default player icon (character)
+        user is the default user icon (character)
         '''
+    user_cpy = ""
+    if user == None:
+        user = '\033[34m@\x1b[0m'
+        
+    else:
+        try:
+            user_cpy = user
+            user = user.player_char
+        except TypeError:
+            print(user)
+            sleep(5)
+            user = '\033[34m@\x1b[0m'
     output = None
     
     
@@ -20,7 +32,7 @@ def move(board, original, direction=None, change=0, last=None, player='\033[34m@
         try:
             if board[last[0]+change][last[1]] == " " :
                 # movement only on floor that is " "
-                board[last[0]+change][last[1]] = player
+                board[last[0]+change][last[1]] = user
                 board[last[0]][last[1]] = original[last[0]][last[1]]
                 return True
             elif board[last[0]+change][last[1]] == "0":
@@ -28,7 +40,7 @@ def move(board, original, direction=None, change=0, last=None, player='\033[34m@
                 sage()
                 return False
             elif board[last[0]+change][last[1]] == (Colors.portal + "$" + Colors.end):
-                board[last[0]+change][last[1]] = player
+                board[last[0]+change][last[1]] = user
                 board[last[0]][last[1]] = original[last[0]][last[1]]
                 output = 2
                 return (True,output)
@@ -45,7 +57,7 @@ def move(board, original, direction=None, change=0, last=None, player='\033[34m@
         try:
             if board[last[0]][last[1]+change] == " ":
                 # movement only on floor that is " "
-                board[last[0]][last[1]+change] = player
+                board[last[0]][last[1]+change] = user
                 board[last[0]][last[1]] = original[last[0]][last[1]]
                 return True
             elif board[last[0]][last[1]+change] == "0":
@@ -53,7 +65,7 @@ def move(board, original, direction=None, change=0, last=None, player='\033[34m@
                 sage()
                 return False
             elif board[last[0]][last[1]+change] == (Colors.portal + "$" + Colors.end):
-                board[last[0]][last[1]+change] = player
+                board[last[0]][last[1]+change] = user
                 board[last[0]][last[1]] = original[last[0]][last[1]]
                 output = 2
                 return (True,output)
@@ -66,7 +78,7 @@ def move(board, original, direction=None, change=0, last=None, player='\033[34m@
         
         
     def idle():
-        board[last[0]][last[1]] = player
+        board[last[0]][last[1]] = user
     
     
     if direction is None and change == 0 and last is None:

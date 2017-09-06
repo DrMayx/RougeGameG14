@@ -1,6 +1,10 @@
 import random
 
 
+def update_statistics():
+    pass
+
+
 def forrest_fight():
     quiz_number = []
     quiz_number = random.randint(0, 9)
@@ -34,12 +38,12 @@ def dungeon_fight():
     print("\nTo kill a monster you have to crack 2 digit code!")
     print("\nHOT - number on correct position" + "\nWARM - number in the code" + "\nCOLD - number not in code")
     while True:
+        print_string_list = ''
         guess = input_two_digit_code()
         result = check_two_digit_code(guess, quiz_number)
         for element in result:
             print_string_list += element + ' '
         print(print_string_list)
-        print_string_list = ''
         if check_result(result):
             print('WIN')
             break
@@ -81,7 +85,7 @@ def check_two_digit_code(user_guess, quiz_number):
 
 
 def check_result(hint_list):
-    if hint_list == ['HOT']*2:
+    if hint_list == 'HOT HOT ':
         return True
 
 
@@ -89,12 +93,12 @@ def boss_fight():
     print_string_list = ''
     correct_answer = get_random_digits()
     while True:
+        print_string_list = ''
         user_guess = get_user_input()
         result = compare_user_input_with_answer(user_guess, correct_answer)
         for element in result:
             print_string_list += element + ' '
         print(print_string_list)
-        print_string_list = ''
         if check_result(result):
             print("WIN")
             break
@@ -139,5 +143,5 @@ def check_result(hint_list):
         return True
 
 #forrest_fight()
-#dungeon_fight()
+dungeon_fight()
 boss_fight()

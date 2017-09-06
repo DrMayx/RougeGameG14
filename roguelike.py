@@ -9,6 +9,7 @@ from movement import move
 from menus import display_menu
 from menus import display_pause_menu
 from enemies import Enemy
+from player import Player
 from colors import Colors
 from random import randint
 import os
@@ -59,12 +60,13 @@ def main():
     clear()
     last_map_id = 1
     enemies = [1,True]
+    player = Player()
     while True:
         '''main loop of the game'''
         clear()
         # mapcheck
         if map_id == 0:
-            status = display_menu(maps, current_choice, last_input)
+            status = display_menu(maps, current_choice, last_input, player)
             if status is None:
                 exit()
                 break
@@ -82,7 +84,7 @@ def main():
         elif map_id == 1:
             last_map_id = 1
             if last_pos is None:
-                change = move(board, original_board, last=(33, 60))
+                change = move(board, original_board, last=(33, 60), user = player)
                 last_pos = change[0]
                 board = change[1]
             # If on certain map stay on that map
@@ -94,7 +96,7 @@ def main():
                 last_input = ''
                 current_choice = 1
             elif user_input == 'w':
-                change = move(board, original_board, 0, -1, last_pos)
+                change = move(board, original_board, 0, -1, last_pos, user = player)
                 last_pos = change[0]
                 board = change[1]
                 if change[2] is not None:
@@ -103,7 +105,7 @@ def main():
                     original_board = unfile(maps[change[2]])
                     last_pos = None
             elif user_input == 's':
-                change = move(board, original_board, 0, 1, last_pos)
+                change = move(board, original_board, 0, 1, last_pos, user = player)
                 last_pos = change[0]
                 board = change[1]
                 if change[2] is not None:
@@ -112,7 +114,7 @@ def main():
                     original_board = unfile(maps[change[2]])
                     last_pos = None
             elif user_input == 'a':
-                change = move(board, original_board, 1, -1, last_pos)
+                change = move(board, original_board, 1, -1, last_pos, user = player)
                 last_pos = change[0]
                 board = change[1]
                 if change[2] is not None:
@@ -121,7 +123,7 @@ def main():
                     original_board = unfile(maps[change[2]])
                     last_pos = None
             elif user_input == 'd':
-                change = move(board, original_board, 1, 1, last_pos)
+                change = move(board, original_board, 1, 1, last_pos, user = player)
                 last_pos = change[0]
                 board = change[1]
                 if change[2] is not None:
@@ -138,7 +140,7 @@ def main():
             
             
             if last_pos is None:
-                change = move(board, original_board, last=(3, 45))
+                change = move(board, original_board, last=(3, 45), user = player)
                 last_pos = change[0]
                 board = change[1]
                 
@@ -166,25 +168,25 @@ def main():
                 last_input = ''
                 current_choice = 1
             elif user_input == 'w':
-                change = move(board, original_board, 0, -1, last_pos)
+                change = move(board, original_board, 0, -1, last_pos, user = player)
                 last_pos = change[0]
                 board = change[1]
                 if change[2] is not None:
                     map_id = maps[change[2]]
             elif user_input == 's':
-                change = move(board, original_board, 0, 1, last_pos)
+                change = move(board, original_board, 0, 1, last_pos, user = player)
                 last_pos = change[0]
                 board = change[1]
                 if change[2] is not None:
                     map_id = maps[change[2]]
             elif user_input == 'a':
-                change = move(board, original_board, 1, -1, last_pos)
+                change = move(board, original_board, 1, -1, last_pos, user = player)
                 last_pos = change[0]
                 board = change[1]
                 if change[2] is not None:
                     map_id = maps[change[2]]
             elif user_input == 'd':
-                change = move(board, original_board, 1, 1, last_pos)
+                change = move(board, original_board, 1, 1, last_pos, user = player)
                 last_pos = change[0]
                 board = change[1]
                 if change[2] is not None:
@@ -192,13 +194,14 @@ def main():
             else:
                 exit()
                 break
+                '''
             if enemies_left == 0:
                 map_id = 1
                 current_choice = 1
                 board = unfile(maps[change[2]])
                 original_board = unfile(maps[change[2]])
                 last_pos = None
-                
+                '''
         elif map_id == 6:
             status = display_pause_menu(maps, current_choice, last_input)
             if status is None:
