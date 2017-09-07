@@ -36,6 +36,7 @@ def dungeon_fight():
     print("\nTo kill a monster you have to crack 2 digit code!")
     print("\nHOT - number on correct position" + "\nWARM - number in the code" + "\nCOLD - number not in code")
     while True:
+
         user_guess = input_two_digit_code()
         hint_list = check_two_digit_code(user_guess, quiz_number)
         for element in hint_list:
@@ -91,6 +92,7 @@ def boss_fight():
     print_string_list = ''
     correct_answer = get_random_digits()
     while True:
+        print_string_list = ''
         user_guess = get_user_input()
         result = compare_user_input_with_answer(user_guess, correct_answer)
         for element in result:
@@ -102,7 +104,6 @@ def boss_fight():
             break
         else:
             player.life -= enemy.damage
-
 
 def get_random_digits():
     correct_answer = []

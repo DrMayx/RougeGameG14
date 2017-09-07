@@ -11,64 +11,67 @@ def logo():  # printing logo
             print(line[:-1])
 
 
-def display_menu(maps, current_choice, last_input):
-	user_input = last_input
-	logo()
-	current_choice = button(user_input, current_choice)
-	user_input = getch()
-	
-	if user_input == '\r' and current_choice == 4:
-		return
-	if user_input == '\r' and current_choice == 1:
-		# Change map to lvl 1
-		# Can be modified to show story
+def display_menu(maps, current_choice, last_input, user):
+    user_input = last_input
+    logo()
+    current_choice = button(user_input, current_choice)
+    print('\n\n')
+    print("player:".rjust(65), "name:".rjust(24))
+    print(user.player_char.rjust(71), user.name.rjust(26))
+    user_input = getch()
 
-		clear()
-		board = unfile(maps[1])
-		original_board = unfile(maps[1])
-		return (1, None, board, original_board)
-	
-	if user_input == '\r' and current_choice == 2:
-		# Change to about screen
+    if user_input == '\r' and current_choice == 4:
+        return
+    if user_input == '\r' and current_choice == 1:
+        # Change map to lvl 1
+        # Can be modified to show story
 
-		clear()
-		about()
-		clear()
-		logo()
-		return ('menu', current_choice, user_input)
+        clear()
+        board = unfile(maps[1])
+        original_board = unfile(maps[1])
+        return (1, None, board, original_board)
 
-	if user_input == '\r' and current_choice == 3:
-		# Change to about screen
+    if user_input == '\r' and current_choice == 2:
+        # Change to about screen
 
-		clear()
-		about()
-		clear()
-		logo()
-		return ('menu', current_choice, user_input)
-		
-	else:
-		clear()
-		logo()
-		return ('menu', current_choice, user_input)
-	
-	
+        clear()
+        about()
+        clear()
+        logo()
+        return ('menu', current_choice, user_input)
+
+    if user_input == '\r' and current_choice == 3:
+        # Change to about screen
+
+        clear()
+        about()
+        clear()
+        logo()
+        return ('menu', current_choice, user_input)
+
+    else:
+        clear()
+        logo()
+        return ('menu', current_choice, user_input)
+
+
 def display_pause_menu(last_map, current_choice, last_input):
-	clear()
-	user_input = last_input
-	current_choice = button(user_input, current_choice)
-	user_input = getch()
-	if user_input == 'p':
-		return
-	elif user_input == '\r' and current_choice == 1:
-		return
-	elif user_input == '\r' and current_choice == 2:
-		# Change to about screen
+    clear()
+    user_input = last_input
+    current_choice = button(user_input, current_choice)
+    user_input = getch()
+    if user_input == 'p':
+        return
+    elif user_input == '\r' and current_choice == 1:
+        return
+    elif user_input == '\r' and current_choice == 2:
+        # Change to about screen
 
-		clear()
-		about()
-		clear()
-		logo()
-		return ('menu', current_choice, user_input)
-	else:
-		clear()
-		return('pause', current_choice, user_input)
+        clear()
+        about()
+        clear()
+        logo()
+        return ('menu', current_choice, user_input)
+    else:
+        clear()
+        return('pause', current_choice, user_input)
