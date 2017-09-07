@@ -1,17 +1,16 @@
-import random
-
-def update_statistics():
-    pass
+from random import randint
 
 def fight(player,enemy):
-    from random import randint
     from clear import resize_and_clear as clear
     clear()
-    prin    t("You fight enemy lvl",enemy.level)
+    print("You fight enemy lvl",enemy.level)
     quiz =[]
     guessed = {"hot":0, "warm":0}
+    if enemy.level == 1:
+            forrest_fight(player, enemy)
+            return
     for i in range(0,enemy.level):
-        quiz.append(randint(0,9))
+        quiz.append(str(randint(0,9)))
     print(quiz)
     while player.life>0:
         print('LIFES: ',player.life)
@@ -38,35 +37,6 @@ def fight(player,enemy):
             break
             
             
-<<<<<<< HEAD
-            
-            
-            
-            
-            
-            
-        '''    
-            
-            
-def forrest_fight():
-    quiz_number = []
-    quiz_number = random.randint(0, 9)
-    print("\nTo kill a monster you have to crack 1 digit code!")
-    while True:
-        user_guess = digit_guess()
-        if str(quiz_number) == user_guess:
-            print("HIT")
-            break
-        if str(quiz_number) < user_guess:
-            print('Your digit is too high!')
-            player.life -= enemy.damage
-        if str(quiz_number) > user_guess:
-            print("Your digit is too low!")
-            player.life -= enemy.damage
-
-
-=======
->>>>>>> 970fe3da7300421c6feaffee2731dc72275010ae
 def digit_guess(level):
     while True:
         user_guess = input("Guess the number now!: ")
@@ -78,16 +48,35 @@ def digit_guess(level):
             return list(user_guess)
             
             
-            
-            
+def forrest_fight(player, enemy):
+        FIRST_LEVEL = 1
+        quiz_number = randint(0, 9)
+        print("\nTo kill a monster you have to crack 1 digit code!")
+        while True:
+            user_guess = int(digit_guess(FIRST_LEVEL)[0])
+            print(user_guess)
+            if quiz_number == user_guess:
+                print("HIT")
+                enemy.life-=1
+                break
+            if quiz_number < user_guess:
+                print('Your digit is too high!')
+                player.life-=1
+            if quiz_number > user_guess:
+                print("Your digit is too low!")
+                player.life-=1
+
+            if player.life<1:
+                break   
+           
             
 def nie_chce_mi_chowac_tego_komentarza_wiec_zamykam_go_w_funkcji():            
     '''
     def forrest_fight():
-    =======
+    
     
     def forrest_fight(player, enemy):
-    >>>>>>> 076dba7309527605253065dc320734c89189e04a
+    
         quiz_number = []
         quiz_number = random.randint(0, 9)
         print("\nTo kill a monster you have to crack 1 digit code!")
