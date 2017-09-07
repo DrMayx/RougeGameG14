@@ -3,46 +3,48 @@ from time import sleep
 from people import sage
 from fightmodule import fight
 
-
-def move(board, original, direction=None, change=0, last=None, user=None, enemy=None):
+# board, direction=None, change=0, last=None, user=None, enemy=None
+def move(args):
     '''function that moves user character through the map
         board is a map (list)
-        original is an original map (list)
         direction = [0-up, 1-right] (number)
         change = [1, -1] (number)
-        current_pos is a tuple containing a position before move() is called
         user is the default user icon (character)
         '''
-    user_cpy = ""
-    if user == None:
-        user = '\033[34m@\x1b[0m'
-        
-    else:
-        try:
-            user_cpy = user
-            user = user.player_char
-        except TypeError:
-            print(user)
-            sleep(5)
-            user = '\033[34m@\x1b[0m'
-    output = None
     
+    
+    board = args['board']
+    direction = args['direction']
+    change = args['change']
+    last = args['last_pos']
+    user = args['player']
+    enemy = args['enemies']
+    
+    try:
+        user_cpy = user
+        character = user.player_char
+    except TypeError:
+        print(user)
+        sleep(5)
+        return
+    
+    output = None
     
     def move_down(player, enemy):
         '''function in charge of movig character up an down'''
         try:
             if board[last[0]+change][last[1]] == " " :
                 # movement only on floor that is " "
-                board[last[0]+change][last[1]] = user
-                board[last[0]][last[1]] = original[last[0]][last[1]]
+                board[last[0]+change][last[1]] = character
+                board[last[0]][last[1]] = " "
                 return True
             elif board[last[0]+change][last[1]] == "0":
                 #here goes the things that sage wants to say
                 sage()
                 return False
             elif board[last[0]+change][last[1]] == (Colors.portal + "$" + Colors.end):
-                board[last[0]+change][last[1]] = user
-                board[last[0]][last[1]] = original[last[0]][last[1]]
+                board[last[0]+change][last[1]] = character
+                board[last[0]][last[1]] = " "
                 output = 2
                 return (True,output)
             elif '<' in board[last[0]+change][last[1]]:
@@ -67,16 +69,16 @@ def move(board, original, direction=None, change=0, last=None, user=None, enemy=
         try:
             if board[last[0]][last[1]+change] == " ":
                 # movement only on floor that is " "
-                board[last[0]][last[1]+change] = user
-                board[last[0]][last[1]] = original[last[0]][last[1]]
+                board[last[0]][last[1]+change] = character
+                board[last[0]][last[1]] = " "
                 return True
             elif board[last[0]][last[1]+change] == "0":
                 #here goes the intro
                 sage()
                 return False
             elif board[last[0]][last[1]+change] == (Colors.portal + "$" + Colors.end):
-                board[last[0]][last[1]+change] = user
-                board[last[0]][last[1]] = original[last[0]][last[1]]
+                board[last[0]][last[1]+change] = character
+                board[last[0]][last[1]] = " "
                 output = 2
                 return (True,output)
             elif '<' in board[last[0]][last[1]+change]:
@@ -98,7 +100,7 @@ def move(board, original, direction=None, change=0, last=None, user=None, enemy=
         
         
     def idle():
-        board[last[0]][last[1]] = user
+        board[last[0]][last[1]] = character
     
     
     if direction is None and change == 0 and last is None:
