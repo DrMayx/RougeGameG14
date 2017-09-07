@@ -23,12 +23,16 @@ def exit():
     for char in exit_msg:
         print(char, end="", flush=True)
         sleep(.03)
-    safety_check = getch()
-    '''
-    if safety_check = 'y':
-        clear(24,80)
-    '''
-    clear(24, 80)
+    while True:
+        safety_check = getch()
+        if safety_check == 'y':
+            clear(24,80)
+            forcequit()
+        elif safety_check == 'n':
+            break
+        else:
+            print("\n\nYou have to press [Y] or [N]")
+
 
 
 def main():
@@ -76,7 +80,6 @@ def main():
             status = display_menu(args)
             if status is None:
                 exit()
-                break
             elif status[0] == args['maps'][0]:
                 args['map_id'] = 0
                 args['current_choice'] = status[1]
