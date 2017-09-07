@@ -10,4 +10,6 @@ def intro():
                     return"""
                 print(char, end="", flush=True)
                 sleep(.005)
-        sleep(6)
+        sleep(1)
+    print("\n\nClick any button to continue: ")
+    user_input = getch()
