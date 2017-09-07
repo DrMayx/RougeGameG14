@@ -25,7 +25,8 @@ class Player:
 					clear()
 
 			while True:
-				message = "\n\nChoose Your Hero:\n"
+				print("\n\nYou can choose which sign you want to be: ")
+				message = "Choose Your Hero:\n"
 				heroes = "@\t&\t[A-Z]\n"
 				for char in message:
 					print(char, end="", flush=True)
