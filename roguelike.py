@@ -170,25 +170,25 @@ def main():
                 last_input = ''
                 current_choice = 1
             elif user_input == 'w':
-                change = move(board, original_board, 0, -1, last_pos, user = player)
+                change = move(board, original_board, 0, -1, last_pos, user = player, enemy = enemies)
                 last_pos = change[0]
                 board = change[1]
                 if change[2] is not None:
                     map_id = maps[change[2]]
             elif user_input == 's':
-                change = move(board, original_board, 0, 1, last_pos, user = player)
+                change = move(board, original_board, 0, 1, last_pos, user = player, enemy = enemies)
                 last_pos = change[0]
                 board = change[1]
                 if change[2] is not None:
                     map_id = maps[change[2]]
             elif user_input == 'a':
-                change = move(board, original_board, 1, -1, last_pos, user = player)
+                change = move(board, original_board, 1, -1, last_pos, user = player, enemy = enemies)
                 last_pos = change[0]
                 board = change[1]
                 if change[2] is not None:
                     map_id = maps[change[2]]
             elif user_input == 'd':
-                change = move(board, original_board, 1, 1, last_pos, user = player)
+                change = move(board, original_board, 1, 1, last_pos, user = player, enemy = enemies)
                 last_pos = change[0]
                 board = change[1]
                 if change[2] is not None:
