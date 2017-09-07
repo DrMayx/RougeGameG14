@@ -1,7 +1,57 @@
 import random
 
+<<<<<<< HEAD
+def update_statistics():
+    pass
+
+def fight(player,enemy):
+    from random import randint
+    from clear import resize_and_clear as clear
+    clear()
+    print("You fight enemy lvl",enemy.level)
+    quiz =[]
+    guessed = {"hot":0, "warm":0}
+    for i in range(0,enemy.level):
+        quiz.append(randint(0,9))
+    while player.life>0:
+        print('LIFES: ',player.lifes)
+        user_guess = digit_guess(enemy.level)
+        for i in range(enemy.level):
+            if user_guess[i] == quiz[i]:
+                guessed["hot"]+=1
+                
+            elif user_guess[i] in quiz:
+                guessed["warm"]+=1
+                player.life-=1
+        print("Hot " *guessed["hot"], "Warm " *guessed["warm"])
+        print("\n")
+        if guessed["hot"]==0 and guessed["warm"]==0:
+            print("Cold")
+            player.life-=1
+        elif guessed["hot"] == 3:
+            print("HIT")
+            enemy.life-=1
+        
+        if enemy.life <1:
+            break
+        if player.life<1:
+            break
+            
+            
+            
+            
+            
+            
+            
+            
+        '''    
+            
+            
+def forrest_fight():
+=======
 
 def forrest_fight(player, enemy):
+>>>>>>> 076dba7309527605253065dc320734c89189e04a
     quiz_number = []
     quiz_number = random.randint(0, 9)
     print("\nTo kill a monster you have to crack 1 digit code!")
@@ -18,15 +68,15 @@ def forrest_fight(player, enemy):
             player.life -= enemy.damage
 
 
-def digit_guess():
+def digit_guess(level):
     while True:
-        user_guess = input("Guess the digit now!: ")
+        user_guess = input("Guess the number now!: ")
         if user_guess.isalpha():
             print("Guess a digit or it wont work!")
-        elif len(user_guess) != 1:
-            print("This has to be exactly one digit!")
+        elif len(user_guess) != level:
+            print("This has to be exactly $d digit!" % level)
         else:
-            return user_guess
+            return list(user_guess)
 
            
 def dungeon_fight():
@@ -143,3 +193,12 @@ def compare_user_input_with_answer(user_guess, correct_answer):
 def check_result_three(hint_list):
     if hint_list == ["HOT"] * 3:
         return True
+<<<<<<< HEAD
+
+#forrest_fight()
+#dungeon_fight()
+#boss_fight()
+=======
+>>>>>>> 076dba7309527605253065dc320734c89189e04a
+
+'''

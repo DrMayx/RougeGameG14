@@ -1,10 +1,10 @@
 from colors import Colors
 from time import sleep
 from people import sage
-import fightmodule as fight
+from fightmodule import fight
 
 
-def move(board, original, direction=None, change=0, last=None, user=None):
+def move(board, original, direction=None, change=0, last=None, user=None, enemy=None):
     '''function that moves user character through the map
         board is a map (list)
         original is an original map (list)
@@ -28,28 +28,32 @@ def move(board, original, direction=None, change=0, last=None, user=None):
     output = None
     
     
-    def move_down():
+    def move_down(player, enemy):
         '''function in charge of movig character up an down'''
         try:
-            next_pos = board[last[0]+change][last[1]]
-            current = board[last[0]][last[1]]
-            if next_pos == " " :
+            if board[last[0]+change][last[1]] == " " :
                 # movement only on floor that is " "
-                next_pos = user
-                current = original[last[0]][last[1]]
+                board[last[0]+change][last[1]] = user
+                board[last[0]][last[1]] = original[last[0]][last[1]]
                 return True
-            elif next_pos == "0":
+            elif board[last[0]+change][last[1]] == "0":
                 #here goes the things that sage wants to say
                 sage()
                 return False
-            elif next_pos == (Colors.portal + "$" + Colors.end):
-                next_pos = user
-                current = original[last[0]][last[1]]
+            elif board[last[0]+change][last[1]] == (Colors.portal + "$" + Colors.end):
+                board[last[0]+change][last[1]] = user
+                board[last[0]][last[1]] = original[last[0]][last[1]]
                 output = 2
                 return (True,output)
-            elif '<' in next_pos:
-                pass
-                #fight.
+            elif '<' in board[last[0]+change][last[1]]:
+                for element in enemy:
+                    try:
+                        if element.x_coord == last[1] and element.y_coord == (last[0]+change):
+                            enemy = element
+                            print(enemy)
+                    except AttributeError:
+                        pass
+                fight(player,enemy)
             else:
                 idle()
                 return False
@@ -58,25 +62,33 @@ def move(board, original, direction=None, change=0, last=None, user=None):
             return False
             
             
-    def move_right():
+    def move_right(player, enemy):
         '''function in charge of moving character right and left'''
         try:
-            next_pos = board[last[0]][last[1]+change]
-            current = board[last[0]][last[1]]
-            if next_pos == " ":
+            if board[last[0]][last[1]+change] == " ":
                 # movement only on floor that is " "
-                next_pos = user
-                current = original[last[0]][last[1]]
+                board[last[0]][last[1]+change] = user
+                board[last[0]][last[1]] = original[last[0]][last[1]]
                 return True
-            elif next_pos == "0":
+            elif board[last[0]][last[1]+change] == "0":
                 #here goes the intro
                 sage()
                 return False
-            elif next_pos == (Colors.portal + "$" + Colors.end):
-                next_pos = user
-                current = original[last[0]][last[1]]
+            elif board[last[0]][last[1]+change] == (Colors.portal + "$" + Colors.end):
+                board[last[0]][last[1]+change] = user
+                board[last[0]][last[1]] = original[last[0]][last[1]]
                 output = 2
                 return (True,output)
+            elif '<' in board[last[0]][last[1]+change]:
+                for element in enemy:
+                    try:
+                        if element.x_coord == (last[1]+change) and element.y_coord == last[0]:
+                            enemy = element
+                            print(enemy)
+                    except AttributeError:
+                        pass
+                        
+                fight(player,enemy)
             else:
                 idle()
                 return False
@@ -92,7 +104,7 @@ def move(board, original, direction=None, change=0, last=None, user=None):
     if direction is None and change == 0 and last is None:
         pass
     elif direction == 0:
-        check = move_down()
+        check = move_down(user, enemy)
         if check:
             last = [last[0]+change,last[1]]
             try:
@@ -103,7 +115,7 @@ def move(board, original, direction=None, change=0, last=None, user=None):
             except TypeError:
                 pass
     elif direction == 1:
-        check = move_right()
+        check = move_right(user, enemy)
         if check:
             last = [last[0],last[1]+change]
             try:

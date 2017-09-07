@@ -6,7 +6,6 @@ class Enemy:
 	
 	def __init__(self,level= 0):
 		self.level = level
-		
 		if level == 1 :
 			self.life = 1
 			self.damage = 1
