@@ -202,6 +202,8 @@ def main():
         ############################################ MAP DUNGEON ########################################################
         if args['map_id'] == 3:
             
+            clear()
+            
             if args['last_pos'] is None:
                 args['last_pos'] = (19,109)
                 change = move(args)
@@ -211,12 +213,12 @@ def main():
             if args['enemies'][1]:
                 for i in range(15):
                     if randint(0,1):
-                        args['enemies'].append(Enemy(1))
+                        args['enemies'].append(Enemy(2))
                         args['enemies'][0]+=1
                         args['enemies'][args['enemies'][0]].spawn(args['board'])
                         args['board'][args['enemies'][args['enemies'][0]].y_coord][args['enemies'][args['enemies'][0]].x_coord] = Colors.enemy + args['enemies'][args['enemies'][0]].enemy_char + Colors.end
                 if args['enemies'][0] < 2:
-                    args['enemies'].append(Enemy(1))
+                    args['enemies'].append(Enemy(2))
                     args['enemies'][0]+=1
                     args['enemies'][args['enemies'][0]].spawn(args['board'])
                     args['board'][args['enemies'][args['enemies'][0]].y_coord][args['enemies'][args['enemies'][0]].x_coord] = Colors.enemy + args['enemies'][args['enemies'][0]].enemy_char + Colors.end

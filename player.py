@@ -50,7 +50,10 @@ class Player:
 		self.life=30
 		self.money = 0
 		self.enemies_killed = 0
-		self.level = 1
+		self.level = 10
 		self.exp = 0
-		if self.exp % 10 == 0:
+		if self.exp % 10 == 0 and self.exp != 0:
 			self.level +=1
+			
+		self.gold = 0
+		self.potions = 0

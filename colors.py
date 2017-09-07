@@ -8,5 +8,8 @@ class Colors:
     eyes = "\x1b[1;34;47m"
     leafs = "\033[92m"
     tree = "\033[30m"
-    enemy ="\x1b[1;32;41m"
+    enemy = "\x1b[1;32;41m"
+    money = "\x1b[1;33m"
+    chest = "\x1b[2;33m"
     end = "\x1b[0m"
+    

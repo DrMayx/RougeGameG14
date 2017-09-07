@@ -1,41 +1,47 @@
 from random import randint
+from time import sleep
+from clear import resize_and_clear as clear
+
 
 def fight(player,enemy):
-    from clear import resize_and_clear as clear
     clear()
     print("You fight enemy lvl",enemy.level)
     quiz =[]
-    guessed = {"hot":0, "warm":0}
     if enemy.level == 1:
             forrest_fight(player, enemy)
-            return
-    for i in range(0,enemy.level):
-        quiz.append(str(randint(0,9)))
-    print(quiz)
-    while player.life>0:
-        print('LIFES: ',player.life)
-        user_guess = digit_guess(enemy.level)
-        for i in range(enemy.level):
-            if user_guess[i] == quiz[i]:
-                guessed["hot"]+=1
-                
-            elif user_guess[i] in quiz:
-                guessed["warm"]+=1
+    else:
+        quiz = get_quiz(enemy.level)
+        while player.life>0:
+            guessed = {"hot":0, "warm":0}
+            clear()
+            print('LIFES: ',player.life,"\tEXP: ", player.exp)
+            print('Enemy lifes: ', enemy.life)
+            user_guess = digit_guess(enemy.level)
+            for i in range(enemy.level):
+                if user_guess[i] == quiz[i]:
+                    guessed["hot"]+=1
+
+                elif user_guess[i] in quiz:
+                    guessed["warm"]+=1
+                    player.life-=1
+            print("Hot " *guessed["hot"], "Warm " *guessed["warm"])
+            print("\n")
+            if guessed["hot"]==0 and guessed["warm"]==0:
+                print("Cold")
                 player.life-=1
-        print("Hot " *guessed["hot"], "Warm " *guessed["warm"])
-        print("\n")
-        if guessed["hot"]==0 and guessed["warm"]==0:
-            print("Cold")
-            player.life-=1
-        elif guessed["hot"] == enemy.level:
-            print("HIT")
-            enemy.life-=1
-        
-        if enemy.life <1:
-            break
-        if player.life<1:
-            break
-            
+            elif guessed["hot"] == enemy.level:
+                print("HIT")
+                quiz = get_quiz(enemy.level)
+                enemy.life-=1
+            if enemy.life <1:
+                player.exp+=enemy.level
+                print("EXPERIENCE INCREASED")
+                break
+
+            if player.life<1:
+                break
+                
+            sleep(.7)
             
 def digit_guess(level):
     while True:
@@ -43,7 +49,7 @@ def digit_guess(level):
         if user_guess.isalpha():
             print("Guess a digit or it wont work!")
         elif len(user_guess) != level:
-            print("This has to be exactly $d digit!" % level)
+            print("This has to be exactly {0} digit!".format(level))
         else:
             return list(user_guess)
             
@@ -53,8 +59,10 @@ def forrest_fight(player, enemy):
         quiz_number = randint(0, 9)
         print("\nTo kill a monster you have to crack 1 digit code!")
         while True:
+            print('LIFES: ',player.life,"\tEXP: ", player.exp)
+            print('Enemy lifes: ', enemy.life)
             user_guess = int(digit_guess(FIRST_LEVEL)[0])
-            print(user_guess)
+            print("ug " ,user_guess)
             if quiz_number == user_guess:
                 print("HIT")
                 enemy.life-=1
@@ -67,8 +75,25 @@ def forrest_fight(player, enemy):
                 player.life-=1
 
             if player.life<1:
-                break   
-           
+                break 
+                
+def get_quiz(level):
+        quiz_number = []
+        while len(quiz_number) < level:
+            digit = randint(0, 9)
+            if str(digit) not in quiz_number:
+                quiz_number.append(str(digit))
+        return quiz_number
+    
+    
+def doors():
+    clear()
+    user_input = input("To destroy the door in front of you type 'DESTROY': ").upper()
+    if user_input == 'DESTROY':
+        return True
+    else:
+        return False    
+    
             
 def nie_chce_mi_chowac_tego_komentarza_wiec_zamykam_go_w_funkcji():            
     '''

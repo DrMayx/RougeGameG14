@@ -9,10 +9,10 @@ class Enemy:
 		if level == 1 :
 			self.life = 1
 			self.damage = 1
-		if level == 2:
-			self.life == 2
-			self.damage = 2
-		if level == 3:
+		elif level == 2:
+			self.life = level
+			self.damage = level
+		elif level == 3:
 			self.life = 3
 			self.damage = 3
 			

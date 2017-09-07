@@ -25,6 +25,8 @@ def unfile(filename):
                     to_print = Colors.tree + char + Colors.end
                 elif char == '8' or char == 'n':
                     to_print = Colors.leafs + char + Colors.end
+                elif char == '[' or char == ']':
+                    to_print = Colors.chest + char + Colors.end
                 else:
                     to_print = char
                 outcome_list[row_counter].append(to_print)

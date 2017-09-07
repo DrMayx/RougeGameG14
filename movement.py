@@ -2,6 +2,8 @@ from colors import Colors
 from time import sleep
 from people import sage
 from fightmodule import fight
+from random import randint
+from fightmodule import doors
 
 # board, direction=None, change=0, last=None, user=None, enemy=None
 def move(args):
@@ -30,23 +32,29 @@ def move(args):
     
     output = None
     
-    def move_down(player, enemy):
+    def move_down(player, enemies):
         '''function in charge of movig character up an down'''
+        for element in enemies:
+            try:
+                if element.x_coord == last[1] and element.y_coord == (last[0]+change):
+                    enemy = element
+            except AttributeError:
+                pass
         try:
-            if ' ' in board[last[0]+change][last[1]]:
+            if board[last[0]+change][last[1]] == ' ':
                 # movement only on floor that is " "
                 board[last[0]+change][last[1]] = character
                 board[last[0]][last[1]] = " "
                 return True
-            elif '0' in board[last[0]+change][last[1]]:
+            elif board[last[0]+change][last[1]] == '0':
                 #here goes the things that sage wants to say
                 sage()
                 return False
-            elif '$' in board[last[0]+change][last[1]]:
+            elif board[last[0]+change][last[1]] == Colors.portal + '$' + Colors.end:
                 board[last[0]][last[1]] = " "
                 output = 2
                 return (True,output)
-            elif '*' in board[last[0]+change][last[1]]:
+            elif board[last[0]+change][last[1]] == Colors.portal + '*' + Colors.end:
                 if player.level >= 2:
                     board[last[0]][last[1]] = ' '
                     output = 3
@@ -54,14 +62,19 @@ def move(args):
                 else:
                     return False
             elif '<' in board[last[0]+change][last[1]]:
-                for element in enemy:
-                    try:
-                        if element.x_coord == last[1] and element.y_coord == (last[0]+change):
-                            enemy = element
-                            print(enemy)
-                    except AttributeError:
-                        pass
                 fight(player,enemy)
+                if enemy.life == 0:
+                    board[enemy.y_coord][enemy.x_coord] = Colors.money + 'o' + Colors.end
+                return False
+            elif 'o' in board[last[0]+change][last[1]]:
+                player.gold += enemy.level*randint(1, 10)
+                board[last[0]+change][last[1]] = character
+                board[last[0]][last[1]] = ' '
+                return True
+            elif board[last[0]+change][last[1]] == '=':
+                if doors():
+                    board[last[0]+change][last[1]] = ' '
+                return False
             else:
                 idle()
                 return False
@@ -70,8 +83,15 @@ def move(args):
             return False
             
             
-    def move_right(player, enemy):
+    def move_right(player, enemies):
         '''function in charge of moving character right and left'''
+        for element in enemies:
+            try:
+                if element.x_coord == (last[1]+change) and element.y_coord == last[0]:
+                    enemy = element
+                    print(enemy)
+            except AttributeError:
+                pass
         try:
             if board[last[0]][last[1]+change] == " ":
                 # movement only on floor that is " "
@@ -83,15 +103,19 @@ def move(args):
                 sage()
                 return False
             elif '<' in board[last[0]][last[1]+change]:
-                for element in enemy:
-                    try:
-                        if element.x_coord == (last[1]+change) and element.y_coord == last[0]:
-                            enemy = element
-                            print(enemy)
-                    except AttributeError:
-                        pass
-                        
                 fight(player,enemy)
+                if enemy.life == 0:
+                    board[enemy.y_coord][enemy.x_coord] = Colors.money + 'o' + Colors.end
+                return False
+            elif 'o' in board[last[0]][last[1]+change]:
+                player.gold += enemy.level*randint(1, 10)
+                board[last[0]][last[1]+change] = character
+                board[last[0]][last[1]] = ' '
+                return True
+            elif board[last[0]][last[1]+change] == '=':
+                if doors():
+                    board[last[0]][last[1]+change] = ' '
+                return False
             else:
                 idle()
                 return False
