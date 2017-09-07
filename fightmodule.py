@@ -7,7 +7,7 @@ def fight(player,enemy):
     from random import randint
     from clear import resize_and_clear as clear
     clear()
-    prin    t("You fight enemy lvl",enemy.level)
+    print("You fight enemy lvl",enemy.level)
     quiz =[]
     guessed = {"hot":0, "warm":0}
     for i in range(0,enemy.level):

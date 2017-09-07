@@ -33,20 +33,26 @@ def move(args):
     def move_down(player, enemy):
         '''function in charge of movig character up an down'''
         try:
-            if board[last[0]+change][last[1]] == " " :
+            if ' ' in board[last[0]+change][last[1]]:
                 # movement only on floor that is " "
                 board[last[0]+change][last[1]] = character
                 board[last[0]][last[1]] = " "
                 return True
-            elif board[last[0]+change][last[1]] == "0":
+            elif '0' in board[last[0]+change][last[1]]:
                 #here goes the things that sage wants to say
                 sage()
                 return False
-            elif board[last[0]+change][last[1]] == (Colors.portal + "$" + Colors.end):
-                board[last[0]+change][last[1]] = character
+            elif '$' in board[last[0]+change][last[1]]:
                 board[last[0]][last[1]] = " "
                 output = 2
                 return (True,output)
+            elif '*' in board[last[0]+change][last[1]]:
+                if player.level >= 2:
+                    board[last[0]][last[1]] = ' '
+                    output = 3
+                    return (True, output)
+                else:
+                    return False
             elif '<' in board[last[0]+change][last[1]]:
                 for element in enemy:
                     try:
@@ -76,11 +82,6 @@ def move(args):
                 #here goes the intro
                 sage()
                 return False
-            elif board[last[0]][last[1]+change] == (Colors.portal + "$" + Colors.end):
-                board[last[0]][last[1]+change] = character
-                board[last[0]][last[1]] = " "
-                output = 2
-                return (True,output)
             elif '<' in board[last[0]][last[1]+change]:
                 for element in enemy:
                     try:
