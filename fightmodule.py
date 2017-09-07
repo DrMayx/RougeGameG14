@@ -1,6 +1,5 @@
 import random
 
-<<<<<<< HEAD
 def update_statistics():
     pass
 
@@ -48,10 +47,6 @@ def fight(player,enemy):
             
             
 def forrest_fight():
-=======
-
-def forrest_fight(player, enemy):
->>>>>>> 076dba7309527605253065dc320734c89189e04a
     quiz_number = []
     quiz_number = random.randint(0, 9)
     print("\nTo kill a monster you have to crack 1 digit code!")
