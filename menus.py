@@ -3,7 +3,7 @@ from movement import getch
 from clear import resize_and_clear as clear
 from button import change_button as button
 from about import print_about as about
-
+from introscreen import intro as intro
 
 def logo():  # printing logo
     with open("menu.uie") as picture:
@@ -36,6 +36,7 @@ def display_menu(args):
         # Can be modified to show story
 
         clear()
+        intro()
         board = unfile(maps[1])
         original_board = unfile(maps[1])
         return (1, None, board, original_board)
