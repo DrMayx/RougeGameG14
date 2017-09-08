@@ -67,6 +67,14 @@ def move(args):
                     return (True, output)
                 else:
                     return False
+            elif board[last[0]+change][last[1]] == Colors.portal + '^' + Colors.end:
+                from enemies import Enemy
+                
+
+                enemy = Enemy(3)
+                fight(player,enemy)
+                from win import wingame as win
+                #win()
             elif '<' in board[last[0]+change][last[1]]:
                 fight(player,enemy)
                 if enemy.life == 0:

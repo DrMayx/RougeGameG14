@@ -229,7 +229,7 @@ def main():
                 args['last_pos'] = None
                     
         ############################################ MAP DUNGEON ########################################################
-        if args['map_id'] == 3:
+        elif args['map_id'] == 3:
             
             enemies_left = 0
             clear()
@@ -317,6 +317,7 @@ def main():
                 args['board'] = unfile(args['maps'][1])
                 args['last_pos'] = None
                         
+        
         
         if args['player'].life == 0:
             clear()

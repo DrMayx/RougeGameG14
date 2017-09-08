@@ -9,6 +9,8 @@ def fight(player,enemy):
     quiz =[]
     if enemy.level == 1:
             forrest_fight(player, enemy)
+    elif enemy.level == 3:
+        boss_fight(player,enemy)
     else:
         quiz = get_quiz(enemy.level)
         while player.life>0:
@@ -20,7 +22,6 @@ def fight(player,enemy):
             for i in range(enemy.level):
                 if user_guess[i] == quiz[i]:
                     guessed["hot"]+=1
-
                 elif user_guess[i] in quiz:
                     guessed["warm"]+=1
                     player.life-=1
@@ -94,7 +95,64 @@ def doors():
     else:
         return False    
     
-            
+def boss_fight(player,enemy):
+    print_string_list = ''
+    correct_answer = get_random_digits()
+    while True:
+        print_string_list = ''
+        user_guess = get_user_input()
+        result = compare_user_input_with_answer(user_guess, correct_answer)
+        for element in result:
+            print_string_list += element + ' '
+        print(print_string_list)
+        print_string_list = ''
+        if check_result_three(result):
+            print("WIN")
+            player.exp+=100
+            player.gold += 1000
+            break
+        else:
+            player.life -= enemy.damage
+
+def get_random_digits():
+    correct_answer = []
+    while len(correct_answer) < 3:
+        digit = randint(0, 9)
+        if digit not in correct_answer:
+            correct_answer.append(digit)
+    return correct_answer
+
+
+def get_user_input():
+    while True:
+        user_guess = input('Enter three digit code: ')
+        if user_guess.isalpha():
+            print('Guess a digit or it won\'t work!')
+        elif len(user_guess) != 3:
+            print('Your code has to have exactly 3 digits!')
+        else:
+            return list(user_guess)
+
+
+def compare_user_input_with_answer(user_guess, correct_answer):
+    index = 0
+    hint_list = []
+    for a in correct_answer:
+        if str(a) == user_guess[index]:
+            hint_list.insert(0, 'HOT')
+        elif str(a) in user_guess:
+            hint_list.append("WARM")
+        index += 1
+    if not hint_list:
+        hint_list.append("COLD")
+
+    return hint_list
+
+
+def check_result_three(hint_list):
+    if hint_list == ["HOT"] * 3:
+        return True         
+
 def nie_chce_mi_chowac_tego_komentarza_wiec_zamykam_go_w_funkcji():            
     '''
     def forrest_fight():
@@ -188,61 +246,7 @@ def nie_chce_mi_chowac_tego_komentarza_wiec_zamykam_go_w_funkcji():
             return True
 
 
-    def boss_fight():
-        print_string_list = ''
-        correct_answer = get_random_digits()
-        while True:
-            print_string_list = ''
-            user_guess = get_user_input()
-            result = compare_user_input_with_answer(user_guess, correct_answer)
-            for element in result:
-                print_string_list += element + ' '
-            print(print_string_list)
-            print_string_list = ''
-            if check_result_three(result):
-                print("WIN")
-                break
-            else:
-                player.life -= enemy.damage
 
-    def get_random_digits():
-        correct_answer = []
-        while len(correct_answer) < 3:
-            digit = random.randint(0, 9)
-            if digit not in correct_answer:
-                correct_answer.append(digit)
-        return correct_answer
-
-
-    def get_user_input():
-        while True:
-            user_guess = input('Enter three digit code: ')
-            if user_guess.isalpha():
-                print('Guess a digit or it won\'t work!')
-            elif len(user_guess) != 3:
-                print('Your code has to have exactly 3 digits!')
-            else:
-                return list(user_guess)
-
-
-    def compare_user_input_with_answer(user_guess, correct_answer):
-        index = 0
-        hint_list = []
-        for a in correct_answer:
-            if str(a) == user_guess[index]:
-                hint_list.insert(0, 'HOT')
-            elif str(a) in user_guess:
-                hint_list.append("WARM")
-            index += 1
-        if not hint_list:
-            hint_list.append("COLD")
-
-        return hint_list
-
-
-    def check_result_three(hint_list):
-        if hint_list == ["HOT"] * 3:
-            return True
     <<<<<<< HEAD
 
     #forrest_fight()

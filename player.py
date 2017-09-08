@@ -36,7 +36,7 @@ class Player:
 					sleep(.02)
 				user_char = input()
 				if user_char == '':
-					self.level = 10
+					self.level = 100
 					self.gold = 25
 					return (user_name, '@')
 				elif len(user_char) > 1 or user_char not in allowed_chars[:27]:
@@ -51,7 +51,7 @@ class Player:
 		
 		self.name = creator[0]
 		self.player_char = "\033[34m" + creator[1] + "\033[0m"
-		self.level = 1
+		self.level = 10
 		self.enemies_killed = 0
 		self.exp = 0
 		self.life=10 * self.level
@@ -60,7 +60,7 @@ class Player:
 		self.potions = 0
 		
 	def reset(self):
-		self.level = 1
+		self.level = 10
 		self.enemies_killed = 0
 		self.exp = 0
 		self.life=10 * self.level
