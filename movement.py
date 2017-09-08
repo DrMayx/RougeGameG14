@@ -1,6 +1,7 @@
 from colors import Colors
 from time import sleep
 from people import sage
+from people import shop
 from fightmodule import fight
 from random import randint
 from fightmodule import doors
@@ -21,7 +22,8 @@ def move(args):
     last = args['last_pos']
     user = args['player']
     enemy = args['enemies']
-    
+    enemies_left = args['enemies'][0]
+        
     try:
         user_cpy = user
         character = user.player_char
@@ -34,6 +36,7 @@ def move(args):
     
     def move_down(player, enemies):
         '''function in charge of movig character up an down'''
+        enemies_left = enemies[0]
         for element in enemies:
             try:
                 if element.x_coord == last[1] and element.y_coord == (last[0]+change):
@@ -48,7 +51,10 @@ def move(args):
                 return True
             elif board[last[0]+change][last[1]] == '0':
                 #here goes the things that sage wants to say
-                sage()
+                if player.if_sage == False:
+                    player.if_sage = sage()
+                else:
+                    shop(player)
                 return False
             elif board[last[0]+change][last[1]] == Colors.portal + '$' + Colors.end:
                 board[last[0]][last[1]] = " "
@@ -65,6 +71,7 @@ def move(args):
                 fight(player,enemy)
                 if enemy.life == 0:
                     board[enemy.y_coord][enemy.x_coord] = Colors.money + 'o' + Colors.end
+                    args['enemies'][0] -= 1
                 return False
             elif 'o' in board[last[0]+change][last[1]]:
                 player.gold += enemy.level*randint(1, 10)
@@ -85,11 +92,11 @@ def move(args):
             
     def move_right(player, enemies):
         '''function in charge of moving character right and left'''
+        enemies_left = enemies[0]
         for element in enemies:
             try:
                 if element.x_coord == (last[1]+change) and element.y_coord == last[0]:
                     enemy = element
-                    print(enemy)
             except AttributeError:
                 pass
         try:
@@ -100,12 +107,16 @@ def move(args):
                 return True
             elif board[last[0]][last[1]+change] == "0":
                 #here goes the intro
-                sage()
+                if player.if_sage == False:
+                    player.if_sage = sage()
+                else:
+                    shop(player)
                 return False
             elif '<' in board[last[0]][last[1]+change]:
                 fight(player,enemy)
                 if enemy.life == 0:
                     board[enemy.y_coord][enemy.x_coord] = Colors.money + 'o' + Colors.end
+                    args['enemies'][0] -= 1
                 return False
             elif 'o' in board[last[0]][last[1]+change]:
                 player.gold += enemy.level*randint(1, 10)
@@ -154,19 +165,9 @@ def move(args):
                 pass
     else:
         idle()
-
-      
+    
+    args['enemies'][0] = enemies_left
     return (last,board,output)
-
-
-def attack():
-    pass
-
-
-if __name__ == '__main__':
-    # Do not run alone
-    pass
-
 
 def getch():
     '''function that takes first input

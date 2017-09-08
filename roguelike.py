@@ -2,11 +2,12 @@
 from sys import exit as forcequit
 from clear import resize_and_clear as clear
 from movement import getch
+from movement import move
 from printmap import print_map
 from time import sleep
 from filehandling import unfile
-from movement import move
 from menus import display_menu
+from menus import inventory
 from enemies import Enemy
 from player import Player
 from colors import Colors
@@ -57,19 +58,17 @@ def main():
             3: "dungeon.map",
             4: "boss.map",
             5: "end.map",
-            6: "pause"
-            },
-        
-        'map_id' : 0,
-        'board' : [],
-        'current_choice' : 1,
-        'last_input' : '',
-        'direction' : None,
-        'change' : 0,
-        'enemies' : [1,True],
-        'player' : player,
-        'last_pos' : '',
-    }
+            },       
+            'map_id' : 0,
+            'board' : [],
+            'current_choice' : 1,
+            'last_input' : '',
+            'direction' : None,
+            'change' : 0,
+            'enemies' : [1,True],
+            'player' : player,
+            'last_pos' : '',
+                }
         
     clear()
     while True:
@@ -90,7 +89,7 @@ def main():
                 args['map_id'] = status[0]
                 args['last_pos'] = status[1]
                 args['board'] = status[2]
-        ############################################  MAP SPAWN  ########################################################
+        ############################################   MAP SPAWN ########################################################
         elif args['map_id'] == 1:
             if args['last_pos'] is None:
                 args['last_pos'] = (33,60)
@@ -102,6 +101,7 @@ def main():
             print_map(args['board'])
             user_input = getch()
             if user_input == 'p':
+                clear(24,80)
                 break
             elif user_input == 'w':
                 args['direction'] = 0
@@ -134,11 +134,13 @@ def main():
                 args['board'] = change[1]
             else:
                 exit()
-                break
+                
                 
         ############################################  MAP FOREST ########################################################
         elif args['map_id'] == 2:
             
+            enemies_left = 0
+            print(enemies_left,' b4')
             if args['last_pos'] is None:
                 args['last_pos'] = (3,50)
                 change = move(args)
@@ -151,21 +153,20 @@ def main():
                         args['enemies'].append(Enemy(1))
                         args['enemies'][0]+=1
                         args['enemies'][args['enemies'][0]].spawn(args['board'])
-                        args['board'][args['enemies'][args['enemies'][0]].y_coord][args['enemies'][args['enemies'][0]].x_coord] = Colors.enemy + args['enemies'][args['enemies'][0]].enemy_char + Colors.end
+                        args['board'][args['enemies'][args['enemies'][0]].y_coord][args['enemies'][args['enemies'][0]].x_coord] = args['enemies'][args['enemies'][0]].enemy_char
                 if args['enemies'][0] < 2:
                     args['enemies'].append(Enemy(1))
                     args['enemies'][0]+=1
                     args['enemies'][args['enemies'][0]].spawn(args['board'])
-                    args['board'][args['enemies'][args['enemies'][0]].y_coord][args['enemies'][args['enemies'][0]].x_coord] = Colors.enemy + args['enemies'][args['enemies'][0]].enemy_char + Colors.end
+                    args['board'][args['enemies'][args['enemies'][0]].y_coord][args['enemies'][args['enemies'][0]].x_coord] = args['enemies'][args['enemies'][0]].enemy_char
             
                 args['enemies'][1] = False
-                
-            # enemies_left = enemies[0]
             
             print_map(args['board'])
             
             user_input = getch()
             if user_input == 'p':
+                clear(24,80)
                 break
             elif user_input == 'w':
                 args['direction'] = 0
@@ -199,12 +200,35 @@ def main():
                 args['board'] = change[1]
                 if change[2] is not None:
                     args['map_id'] = maps[change[2]]
+            elif user_input == 'q':
+                if player.potions > 0:
+                    player.life += player.level*2
+                    player.potions -= 1
+            elif user_input == 'i':
+                clear()
+                inventory(player)
             else:
                 exit()
-                break
+                
+                
+            for line in args['board']:
+                if args['enemies'][2].enemy_char in line:
+                    print(line)
+                    enemies_left +=1
+            print(enemies_left,' aftr')
+        
+            if enemies_left == 0:
+                print("Level clear!")
+                sleep(1)
+                args['map_id'] = 1
+                args['current_choice'] = 1
+                args['board'] = unfile(args['maps'][1])
+                args['last_pos'] = None
+                    
         ############################################ MAP DUNGEON ########################################################
         if args['map_id'] == 3:
             
+            enemies_left = 0
             clear()
             
             if args['last_pos'] is None:
@@ -214,26 +238,26 @@ def main():
                 args['board'] = change[1]
                 
             if args['enemies'][1]:
+                args['enemies_left'] = 0
                 for i in range(15):
                     if randint(0,1):
                         args['enemies'].append(Enemy(2))
                         args['enemies'][0]+=1
                         args['enemies'][args['enemies'][0]].spawn(args['board'])
-                        args['board'][args['enemies'][args['enemies'][0]].y_coord][args['enemies'][args['enemies'][0]].x_coord] = Colors.enemy + args['enemies'][args['enemies'][0]].enemy_char + Colors.end
+                        args['board'][args['enemies'][args['enemies'][0]].y_coord][args['enemies'][args['enemies'][0]].x_coord] = args['enemies'][args['enemies'][0]].enemy_char
                 if args['enemies'][0] < 2:
                     args['enemies'].append(Enemy(2))
                     args['enemies'][0]+=1
                     args['enemies'][args['enemies'][0]].spawn(args['board'])
-                    args['board'][args['enemies'][args['enemies'][0]].y_coord][args['enemies'][args['enemies'][0]].x_coord] = Colors.enemy + args['enemies'][args['enemies'][0]].enemy_char + Colors.end
+                    args['board'][args['enemies'][args['enemies'][0]].y_coord][args['enemies'][args['enemies'][0]].x_coord] = args['enemies'][args['enemies'][0]].enemy_char
             
                 args['enemies'][1] = False
-                
-            # enemies_left = enemies[0]
             
             print_map(args['board'])
             
             user_input = getch()
             if user_input == 'p':
+                clear(24,80)
                 break
             elif user_input == 'w':
                 args['direction'] = 0
@@ -267,21 +291,30 @@ def main():
                 args['board'] = change[1]
                 if change[2] is not None:
                     args['map_id'] = maps[change[2]]
+            elif user_input == 'q':
+                if player.potions > 0:
+                    player.life += player.level*2
+                    player.potions -= 1
+            elif user_input == 'i':
+                clear()
+                inventory(player)
             else:
                 exit()
-                break
-        
-        '''    
-        if enemies_left == 0:
+                
+            
+            for line in args['board']:
+                if args['enemies'][2].enemy_char in line:
+                    enemies_left +=1
+                    
+            if enemies_left == 0:
                 print("Level clear!")
                 sleep(1)
-                map_id = 1
-                current_choice = 1
-                board = unfile(maps[change[2]])
-                original_board = unfile(maps[change[2]])
-                last_pos = None
-         '''       
-                
+                args['map_id'] = 1
+                args['current_choice'] = 1
+                args['board'] = unfile(args['maps'][1])
+                args['last_pos'] = None
+                        
+        
 
 if __name__ == "__main__":
     # Check if running as main module

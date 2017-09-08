@@ -48,13 +48,13 @@ class Player:
 		creator = character_creator()
 		self.name = creator[0]
 		self.player_char = "\033[34m" + creator[1] + "\033[0m"
-		self.life=30
+		self.life=300
 		self.money = 0
 		self.enemies_killed = 0
 		self.level = 10
 		self.exp = 0
 		if self.exp % 10 == 0 and self.exp != 0:
 			self.level +=1
-			
-		self.gold = 0
+		self.if_sage = False
+		self.gold = 25
 		self.potions = 0

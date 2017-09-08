@@ -2,7 +2,7 @@ class Enemy:
 	'''class containing all information about enemies'''
 	# can contain coordinates
 	
-	enemy_char='<'
+	enemy_char='\x1b[1;32;41m<\x1b[0m'
 	
 	def __init__(self,level= 0):
 		self.level = level
@@ -23,5 +23,4 @@ class Enemy:
 			self.y_coord = randint(0, len(board)-1)
 			if board[self.y_coord][self.x_coord] == " ":
 				break
-
 			
