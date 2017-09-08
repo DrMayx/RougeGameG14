@@ -37,7 +37,7 @@ def display_menu(args):
         # Can be modified to show story
 
         clear()
-        #intro()
+        intro()
         board = unfile(maps[1])
         original_board = unfile(maps[1])
         return (1, None, board, original_board)
