@@ -52,7 +52,6 @@ class Player:
 		self.name = creator[0]
 		self.player_char = "\033[34m" + creator[1] + "\033[0m"
 		self.level = 1
-		self.money = 0
 		self.enemies_killed = 0
 		self.exp = 0
 		self.life=10 * self.level
@@ -62,7 +61,6 @@ class Player:
 		
 	def reset(self):
 		self.level = 1
-		self.money = 0
 		self.enemies_killed = 0
 		self.exp = 0
 		self.life=10 * self.level

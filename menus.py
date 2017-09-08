@@ -93,4 +93,16 @@ def inventory(player):
     print('\nTo exit press any key.\n')
     getch()
     
-    
+def hall_of_fame(player):
+    score = player.enemies_killed*player.level + player.lifes + player.exp
+    hscores = []
+    with open('hscores') as table:
+        for line in table:
+            hscores.append(line.split(','))
+    if score >= hscores[0][1]:
+        to_write = str(score) + ',' + str(player.name)
+        print('TOP SCORE : ', player.name, ": ", score)
+        with open('hscores','w') as table:
+            table.write(to_write)
+    else:
+        print('TOP SCORE : ', hscores[1], ": ", hscores[0])

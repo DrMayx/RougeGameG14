@@ -15,7 +15,6 @@ class Enemy:
 		elif level == 3:
 			self.life = 3
 			self.damage = 3
-			
 	def spawn(self,board):
 		from random import randint
 		while True:
