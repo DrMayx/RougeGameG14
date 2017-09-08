@@ -20,13 +20,14 @@ def display_menu(args):
     user_input = args['last_input']
     user = args['player']
     
+    user.reset()
     logo()
     
     current_choice = button(user_input, current_choice)
     
     print('\n\n')
     print("player:".rjust(65), "name:".rjust(24))
-    print(user.player_char.rjust(71), user.name.rjust(26))
+    print(user.player_char.rjust(71), user.name.rjust(27))
     user_input = getch()
 
     if user_input == '\r' and current_choice == 4:
@@ -65,4 +66,31 @@ def display_menu(args):
         return ('menu', current_choice, user_input)
 
 def inventory(player):
-    pass
+    # numbers in rjust are calculated to sum up 
+    # with characters to 55 becase this is the length of first print
+    # all is made to be a visual representation of what is to be printed
+    print("=============================================")
+    print("#")
+    print('#', "Gold:".rjust(19),
+          '{}'.rjust(11).format(player.gold))
+    print('#', "Helath potions:".rjust(19),
+          '{}'.rjust(11).format(player.potions))
+    print("#")
+    print("+++++++++++++++++++++++++++++++++++++++++++++")
+    print('#', '\x1b[0;33m{}\x1b[0m'.rjust(10).format(player.name),
+          '{}'.rjust(5).format(player.player_char),
+          'Life:'.rjust(8),
+          '{}'.rjust(10).format(player.life))
+    print('#')
+    print('#', 'Level:'.rjust(19),
+          '{}'.rjust(11).format(player.level))
+    print('#', 'Experience:'.rjust(19),
+          '{}'.rjust(11).format(player.exp))
+    print('#', 'Enemies killed:'.rjust(19),
+          '{}'.rjust(11).format(player.enemies_killed))
+    print('#')
+    print('=============================================')
+    print('\nTo exit press any key.\n')
+    getch()
+    
+    

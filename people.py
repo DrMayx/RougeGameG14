@@ -22,7 +22,7 @@ def sage():
 			line+=picture[:-1].rjust(150)
 		print(line)
 		line_counter+=1
-	sleep(8)
+	sleep(7)
 	return True
 
 def shop(player):
@@ -36,6 +36,8 @@ def shop(player):
 			if player.gold >= 10:
 				player.potions += 1
 				player.gold -= 10
+				print("You bought a potion!")
+				sleep(.7)
 		elif user_input == 'e':
 			break
 			

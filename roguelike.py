@@ -132,6 +132,9 @@ def main():
                 change = move(args)
                 args['last_pos'] = change[0]
                 args['board'] = change[1]
+            elif user_input == 'i':
+                clear()
+                inventory(player)
             else:
                 exit()
                 
@@ -315,7 +318,13 @@ def main():
                 args['last_pos'] = None
                         
         
-
+        if args['player'].life == 0:
+            clear()
+            print("You lost!")
+            sleep(3)
+            args['map_id'] = 0
+            args['current_choice'] = 1
+            args['last_pos'] = None
 if __name__ == "__main__":
     # Check if running as main module
     main()

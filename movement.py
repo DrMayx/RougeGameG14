@@ -72,6 +72,7 @@ def move(args):
                 if enemy.life == 0:
                     board[enemy.y_coord][enemy.x_coord] = Colors.money + 'o' + Colors.end
                     args['enemies'][0] -= 1
+                    player.enemies_killed +=1
                 return False
             elif 'o' in board[last[0]+change][last[1]]:
                 player.gold += enemy.level*randint(1, 10)
@@ -117,6 +118,7 @@ def move(args):
                 if enemy.life == 0:
                     board[enemy.y_coord][enemy.x_coord] = Colors.money + 'o' + Colors.end
                     args['enemies'][0] -= 1
+                    player.enemies_killed +=1
                 return False
             elif 'o' in board[last[0]][last[1]+change]:
                 player.gold += enemy.level*randint(1, 10)
@@ -168,6 +170,7 @@ def move(args):
     
     args['enemies'][0] = enemies_left
     return (last,board,output)
+
 
 def getch():
     '''function that takes first input

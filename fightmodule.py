@@ -62,10 +62,10 @@ def forrest_fight(player, enemy):
             print('LIFES: ',player.life,"\tEXP: ", player.exp)
             print('Enemy lifes: ', enemy.life)
             user_guess = int(digit_guess(FIRST_LEVEL)[0])
-            print("ug " ,user_guess)
             if quiz_number == user_guess:
                 print("HIT")
                 enemy.life-=1
+                player.exp+=1
                 break
             if quiz_number < user_guess:
                 print('Your digit is too high!')

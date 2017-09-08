@@ -11,5 +11,6 @@ class Colors:
     enemy = "\x1b[1;32;41m"
     money = "\x1b[1;33m"
     chest = "\x1b[2;33m"
+    back_to_spawn = '\x1b[4;33m'
     end = "\x1b[0m"
     
