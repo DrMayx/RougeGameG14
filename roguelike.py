@@ -12,6 +12,7 @@ from enemies import Enemy
 from player import Player
 from colors import Colors
 from random import randint
+from lost import loose_game as lost
 import os
 
 
@@ -321,7 +322,7 @@ def main():
         
         if args['player'].life == 0:
             clear()
-            print("You lost!")
+            lost()
             sleep(3)
             args['map_id'] = 0
             args['current_choice'] = 1
